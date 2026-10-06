@@ -1,4 +1,4 @@
-import { createGetUrl } from 'fumadocs-core/source';
+import { i18n } from './i18n';
 
 export const appName = "eEdu.bd Docs";
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://docs.eedu.bd";
@@ -12,18 +12,19 @@ export const gitConfig = {
   branch: "main",
 };
 
-const getContentUrl = createGetUrl(docsContentRoute);
+const joinSegments = (parts: string[]) =>
+  `/${parts.filter((part) => part.length > 0).join('/')}`;
 
 export function getPageMarkdownUrl(page: { slugs: string[]; locale?: string }) {
-  const segments = [...page.slugs, 'content.md'];
+  const lang = page.locale ?? i18n.defaultLanguage;
+  const segments = [lang, ...page.slugs, 'content.md'];
 
-  return { segments, url: getContentUrl(segments, page.locale) };
+  return { segments, url: joinSegments([docsContentRoute, ...segments]) };
 }
 
-const getImageUrl = createGetUrl(docsImageRoute);
-
 export function getPageImageUrl(page: { slugs: string[]; locale?: string }) {
-  const segments = [...page.slugs, 'image.png'];
+  const lang = page.locale ?? i18n.defaultLanguage;
+  const segments = [lang, ...page.slugs, 'image.png'];
 
-  return { segments, url: getImageUrl(segments, page.locale) };
+  return { segments, url: joinSegments([docsImageRoute, ...segments]) };
 }

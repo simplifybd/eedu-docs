@@ -1,0 +1,11 @@
+{
+  "title": "eEdu.bd হেল্প সেন্টার",
+  "pages": [
+    "index",
+    "hardware-guide",
+    "website-and-domain",
+    "school-operations",
+    "troubleshooting"
+  ],
+  "defaultOpen": true
+}

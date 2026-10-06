@@ -61,6 +61,18 @@ public/
   images/icon.png             Square app icon
 ```
 
+## Internationalization (English & Bangla)
+
+The site is fully bilingual — `en` and `bn` — with a **language switcher** in the docs nav.
+
+- **URL scheme:** `docs.eedu.bd/en/docs/...` and `docs.eedu.bd/bn/docs/...`. Hitting `/` or `/docs` auto-redirects to the browser's preferred language.
+- **Content:** every document exists twice, under `content/docs/en/` (English) and `content/docs/bn/` (Bangla). Section folders and file names match across languages so slugs align.
+- **Config:** `lib/i18n.ts` holds the `defineI18n({ languages: ['en','bn'], parser: 'dir' })` config plus Bangla UI (search/theme/pagination) string translations.
+- **Routing:** pages/layouts live under `app/[lang]/`. `proxy.ts` runs the i18n middleware (locale redirect) plus `Accept: text/markdown` and `.md`-suffix content negotiation.
+- **SEO:** each page emits a canonical URL plus `hreflang` alternates (`en`, `bn`, `x-default`); sitemap and OG images are generated per locale.
+
+To add a new page: write the `.mdx` in **both** `content/docs/en/<section>/` and `content/docs/bn/<section>/`, list it in the matching `meta.json` `pages` array, and keep the file names identical.
+
 ## Authoring content
 
 ### Adding a page
@@ -84,12 +96,13 @@ icon: House
 
 ```
 content/docs/
-  index.mdx                       Docs landing
-  meta.json                       Top-level sidebar order
-  hardware-guide/                 Device & Biometric Setup
-  website-and-domain/             Custom Domain & Website
-  school-operations/              Everyday School Operations
-  troubleshooting/                Troubleshooting & FAQ
+  en/                             English docs
+    index.mdx · meta.json         Docs landing + sidebar order
+    hardware-guide/               Device & Biometric Setup
+    website-and-domain/           Custom Domain & Website
+    school-operations/            Everyday School Operations
+    troubleshooting/              Troubleshooting & FAQ
+  bn/                             বাংলা ডকুমেন্টেশন (same structure)
 ```
 
 ### Writing conventions

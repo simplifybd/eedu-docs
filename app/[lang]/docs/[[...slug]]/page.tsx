@@ -11,12 +11,21 @@ import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
-import { getPageImageUrl, getPageMarkdownUrl, gitConfig, siteUrl } from '@/lib/shared';
+import {
+  getPageImageUrl,
+  getPageMarkdownUrl,
+  gitConfig,
+  siteUrl,
+} from '@/lib/shared';
 import { docsMetadata } from '@/lib/seo';
 
-export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
+type Props = {
+  params: Promise<{ lang: string; slug?: string[] }>;
+};
+
+export default async function Page({ params }: Props) {
+  const { lang, slug } = await params;
+  const page = source.getPage(slug, lang);
   if (!page) notFound();
 
   const MDX = page.data.body;
@@ -36,7 +45,6 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
       <DocsBody>
         <MDX
           components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
         />
@@ -45,28 +53,35 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   );
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return source.generateParams();
 }
 
-export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const page = source.getPage(slug, lang);
   if (!page) notFound();
 
-  const path = ['docs', ...page.slugs].join('/');
+  const path = page.url;
   const ogImage = getPageImageUrl(page).url;
-  const url = `${siteUrl}/${path}`;
+  const restPath = page.slugs.length
+    ? `/docs/${page.slugs.join('/')}`
+    : '/docs';
 
   return {
     title: page.data.title,
     description: page.data.description,
     alternates: {
-      canonical: `/${path}`,
+      canonical: path,
+      languages: {
+        en: `${siteUrl}/en${restPath}`,
+        bn: `${siteUrl}/bn${restPath}`,
+        'x-default': `${siteUrl}/en${restPath}`,
+      },
     },
     openGraph: {
       ...docsMetadata.openGraph,
-      url,
+      url: `${siteUrl}${path}`,
       title: page.data.title,
       description: page.data.description,
       images: [ogImage],

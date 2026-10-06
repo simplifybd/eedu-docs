@@ -1,6 +1,5 @@
 {
-  "title": "Device & Biometric Setup",
-  "icon": "FingerprintPattern",
+  "title": "ডিভাইস ও বায়োমেট্রিক সেটআপ",
   "pages": [
     "device-cloud-config",
     "user-id-mapping",
