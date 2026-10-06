@@ -5,9 +5,10 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  output: "standalone",
-  outputFileTracingIncludes: {
-    "*": ["./node_modules/@swc/helpers/**"],
+  // Cloudflare Pages static export — no server runtime, no Node-only APIs.
+  output: 'export',
+  images: {
+    unoptimized: true,
   },
   poweredByHeader: false,
 };

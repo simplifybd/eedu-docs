@@ -11,12 +11,7 @@ import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
-import {
-  getPageImageUrl,
-  getPageMarkdownUrl,
-  gitConfig,
-  siteUrl,
-} from '@/lib/shared';
+import { getPageMarkdownUrl, gitConfig, siteUrl } from '@/lib/shared';
 import { docsMetadata } from '@/lib/seo';
 
 type Props = {
@@ -45,6 +40,7 @@ export default async function Page({ params }: Props) {
       <DocsBody>
         <MDX
           components={getMDXComponents({
+            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
         />
@@ -63,7 +59,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!page) notFound();
 
   const path = page.url;
-  const ogImage = getPageImageUrl(page).url;
   const restPath = page.slugs.length
     ? `/docs/${page.slugs.join('/')}`
     : '/docs';
@@ -84,13 +79,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteUrl}${path}`,
       title: page.data.title,
       description: page.data.description,
-      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
       title: page.data.title,
       description: page.data.description,
-      images: [ogImage],
     },
   };
 }

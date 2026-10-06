@@ -3,9 +3,10 @@
   "version": "0.0.41",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/prebuild.mjs",
     "build": "next build",
     "dev": "next dev",
-    "start": "next start",
+    "preview": "npx --yes serve out",
     "types:check": "next typegen && tsc --noEmit",
     "lint": "eslint"
   },

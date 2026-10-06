@@ -65,11 +65,11 @@ public/
 
 The site is fully bilingual — `en` and `bn` — with a **language switcher** in the docs nav.
 
-- **URL scheme:** `docs.eedu.bd/en/docs/...` and `docs.eedu.bd/bn/docs/...`. Hitting `/` or `/docs` auto-redirects to the browser's preferred language.
+- **URL scheme:** `docs.eedu.bd/en/docs/...` and `docs.eedu.bd/bn/docs/...`. `/`, `/docs`, `/en` and `/bn` are 302-redirected with `public/_redirects` (`/` → `/en/docs`, etc.). Browser `Accept-Language` negotiation is intentionally not used (fully static export).
 - **Content:** every document exists twice, under `content/docs/en/` (English) and `content/docs/bn/` (Bangla). Section folders and file names match across languages so slugs align.
 - **Config:** `lib/i18n.ts` holds the `defineI18n({ languages: ['en','bn'], parser: 'dir' })` config plus Bangla UI (search/theme/pagination) string translations.
-- **Routing:** pages/layouts live under `app/[lang]/`. `proxy.ts` runs the i18n middleware (locale redirect) plus `Accept: text/markdown` and `.md`-suffix content negotiation.
-- **SEO:** each page emits a canonical URL plus `hreflang` alternates (`en`, `bn`, `x-default`); sitemap and OG images are generated per locale.
+- **Routing:** pages/layouts live under `app/[lang]/`. The docs are a **static export** (`output: 'export'`), so there is no middleware; locale redirects hang off the static `_redirects` file.
+- **SEO:** each page emits a canonical URL plus `hreflang` alternates (`en`, `bn`, `x-default`). `robots.txt`, `sitemap.xml` and `manifest.webmanifest` are generated into `public/` by `scripts/prebuild.mjs` at build time.
 
 To add a new page: write the `.mdx` in **both** `content/docs/en/<section>/` and `content/docs/bn/<section>/`, list it in the matching `meta.json` `pages` array, and keep the file names identical.
 
@@ -152,46 +152,43 @@ Known renames: `Home → House`, `Fingerprint → FingerprintPattern`.
 - The eEdu.bd public site links to `https://docs.eedu.bd` from the landing **footer** ("Documentation & Help Center") and the **FAQ page**.
 - `siteConfig` in `lib/seo.ts` mirrors eedu-web's `lib/seo/site.ts` (name, socials, support contact, OG image) — keep them in sync.
 
-## Deployment
+## Deployment (Cloudflare Pages)
 
-Single Next.js app, statically pre-rendered (SSG). Typical flow for `docs.eedu.bd`:
+`docs.eedu.bd` is a **fully static Next.js export** — `output: 'export'`, no server runtime, no middleware, no Node-only route handlers. Everything generates into `out/` and Cloudflare Pages serves it from its global edge CDN.
 
-1. `pnpm build`
-2. Serve `pnpm start` (Node) — or export/`output: 'export'` if fully static hosting is preferred.
-3. Set `NEXT_PUBLIC_SITE_URL=https://docs.eedu.bd` in the environment.
+- **`next.config.mjs`** — `output: 'export'` + `images: { unoptimized: true }`.
+- **`scripts/prebuild.mjs`** — runs before `next build` (npm/pnpm `prebuild` hook) and generates into `public/`:
+  - `search/search-index.json` — Fumadocs **static search index** (i18n, unified ZBSearch export) built with `createI18nSearchAPI('simple', …)`.
+  - `robots.txt`, `sitemap.xml` (all localized pages), `manifest.webmanifest`.
+  - `_redirects` — `/ → /en/docs`, `/docs → /en/docs`, `/en → /en/docs`, `/bn → /bn/docs` (302s).
+- **Search** — the built-in search dialog is switched to the static client via `RootProvider search={{ options: { type: 'static', api: '/search/search-index.json' } }}` in `app/[lang]/layout.tsx`. It downloads the index and searches 100% client-side, with per-locale filtering.
+- **`public/_redirects`**, **`public/manifest.webmanifest`**, **`public/robots.txt`**, **`public/sitemap.xml`** replace the Next.js metadata/route handlers that don't exist in static export.
+- **`.github/workflows/ci.yml`** — freeze-install → `pnpm types:check` → `pnpm build`.
 
-## Deployment
+### Cloudflare Pages dashboard settings
 
-`docs.eedu.bd` follows the same containerized, Traefik-proxied, VPS pipeline as [`eedu-web`](https://github.com/simplifybd/eedu-web) and [`eedu-api`](https://github.com/simplifybd/eedu-api):
+| Setting | Value |
+| --- | --- |
+| Framework preset | **Next.js (Static HTML Export)** |
+| Build command | `pnpm build` |
+| Build output directory | `out` |
+| Node version | `NODE_VERSION=22` (as env var, or `.node-version`) |
+| Environment variables | `NEXT_PUBLIC_SITE_URL=https://docs.eedu.bd` |
+| Compatibility flags | None (no `nodejs_compat` needed — pure static) |
 
-- **`next.config.mjs`** — `output: "standalone"` produces a self-contained server bundle for Docker.
-- **`app/api/health/route.ts`** — `/api/health` used by Docker + Traefik health checks.
-- **`Dockerfile`** — two-stage `node:24-slim`: `pnpm install --frozen-lockfile` → `pnpm build`; runner runs the standalone `server.js` as non-root user `nextjs`. Ports are **single-source**: build arg `PORT` (default `3007`) drives `EXPOSE`, the `PORT` env and Traefik. Build arg `NEXT_PUBLIC_SITE_URL` bakes canonical URLs/`metadataBase`/sitemap.
-- **`docker-compose.yaml`** — Traefik v3 labels: router `docs.eedu.bd` (websecure/letsencrypt), service `eedu-docs-svc` on `3007`, health check on `/api/health`, edge rate-limit + retry middlewares, resource limits, `no-new-privileges` + `cap_drop`, external `proxy`/`eedu-internal` networks.
-- **`.github/workflows/ci.yml`** — push/PR on `development`: frozen-lockfile install → `pnpm types:check` → `pnpm build`. (Lint step is best-effort/`continue-on-error` because this template's TS 7.0.2 toolchain is not yet supported by typescript-eslint.)
-- **`.github/workflows/deploy.yml`** — push to `main`: verify gate → `docker/build-push-action` to `ghcr.io/<repo>:latest` (build arg `NEXT_PUBLIC_SITE_URL`) → SSH to the VPS → sync `docker-compose.yaml` to `/srv/apps/eedu/docs` → write `.env` from secrets → `docker compose up -d --force-recreate --scale eedu-docs=N` → poll the Docker/Traefik health check.
-
-### Deploying manually
+### Build & preview locally
 
 ```bash
-# 1. Build locally (or pull from GHCR) — PORT defaults to 3007, override via .env
-docker compose build --build-arg NEXT_PUBLIC_SITE_URL=https://docs.eedu.bd
-
-# 2. Run on a host that already has the external `proxy` + `eedu-internal` networks
-export NEXT_PUBLIC_SITE_URL=https://docs.eedu.bd
-docker compose up -d
-docker compose ps
+pnpm build     # prebuild generates static assets, then exports to out/
+pnpm preview   # local static server on out/ (npx serve)
 ```
 
-`PORT` is a single variable — set it once in `.env` (or `export PORT=…`) and it flows to the container env, the Docker `EXPOSE`, the compose `expose`, the Traefik load-balancer target and the health check. No host port is published (the service sits behind Traefik), so there are never host-port conflicts to manage.
+### Notes / tradeoffs of full static export
 
-### GitHub Actions secrets
-
-| Secret | Purpose |
-| --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site URL baked at build + runtime (`https://docs.eedu.bd`) |
-| `VPS_HOST`, `VPS_USERNAME`, `VPS_SSH_KEY` | SSH target for the deploy container |
-| `VPS_SUDO_PASSWORD` | Optional — used to run docker via `sudo` on the VPS |
+- **No middleware**: `Accept-Language` negotiation and `Accept: text/markdown`/`.md` content negotiation were removed. Unprefixed paths redirect to English via `_redirects`; visitors switch language with the nav dropdown.
+- **No per-page OG route**: all pages share the static `/images/logo.png` social preview image.
+- **No server search**: search is client-side against the prebuilt index (fast, fully static).
+- Dynamic/Image optimization is off (`unoptimized`) since there is no server to resize images.
 
 ## Troubleshooting
 

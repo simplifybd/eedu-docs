@@ -1,0 +1,33 @@
+{
+  "name": "eEdu.bd Docs",
+  "short_name": "eEdu.bd",
+  "description": "Step-by-step help for eEdu.bd — connect biometric devices, run attendance, collect fees, manage exams, payroll, and your school website.",
+  "start_url": "/en/docs",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "lang": "en-BD",
+  "categories": [
+    "education",
+    "business",
+    "reference"
+  ],
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

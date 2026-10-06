@@ -62,7 +62,12 @@ export default async function Layout({
         className="flex flex-col min-h-screen"
         suppressHydrationWarning
       >
-        <RootProvider i18n={i18nProvider(translations, lang)}>
+        <RootProvider
+          i18n={i18nProvider(translations, lang)}
+          search={{
+            options: { type: 'static', api: '/search/search-index.json' },
+          }}
+        >
           {children}
         </RootProvider>
       </body>
