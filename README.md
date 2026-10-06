@@ -152,9 +152,9 @@ Known renames: `Home → House`, `Fingerprint → FingerprintPattern`.
 - The eEdu.bd public site links to `https://docs.eedu.bd` from the landing **footer** ("Documentation & Help Center") and the **FAQ page**.
 - `siteConfig` in `lib/seo.ts` mirrors eedu-web's `lib/seo/site.ts` (name, socials, support contact, OG image) — keep them in sync.
 
-## Deployment (Cloudflare Pages)
+## Deployment (Cloudflare)
 
-`docs.eedu.bd` is a **fully static Next.js export** — `output: 'export'`, no server runtime, no middleware, no Node-only route handlers. Everything generates into `out/` and Cloudflare Pages serves it from its global edge CDN.
+`docs.eedu.bd` is a **fully static Next.js export** — `output: 'export'`, no server runtime, no middleware, no Node-only route handlers. Everything generates into `out/` and Cloudflare serves it at the edge.
 
 - **`next.config.mjs`** — `output: 'export'` + `images: { unoptimized: true }`.
 - **`scripts/prebuild.mjs`** — runs before `next build` (npm/pnpm `prebuild` hook) and generates into `public/`:
@@ -163,9 +163,27 @@ Known renames: `Home → House`, `Fingerprint → FingerprintPattern`.
   - `_redirects` — `/ → /en/docs`, `/docs → /en/docs`, `/en → /en/docs`, `/bn → /bn/docs` (302s).
 - **Search** — the built-in search dialog is switched to the static client via `RootProvider search={{ options: { type: 'static', api: '/search/search-index.json' } }}` in `app/[lang]/layout.tsx`. It downloads the index and searches 100% client-side, with per-locale filtering.
 - **`public/_redirects`**, **`public/manifest.webmanifest`**, **`public/robots.txt`**, **`public/sitemap.xml`** replace the Next.js metadata/route handlers that don't exist in static export.
+- **`wrangler.jsonc`** — committed Cloudflare config. Because the build pipeline runs `npx wrangler deploy`, wrangler is pointed at the static export as **Worker Static Assets** (`assets: { directory: "out" }`) so it never falls into the OpenNext/`output:'standalone'` flow.
 - **`.github/workflows/ci.yml`** — freeze-install → `pnpm types:check` → `pnpm build`.
 
-### Cloudflare Pages dashboard settings
+### Deploy
+
+This pipeline uses the **build command `pnpm run build`** then the **deploy command `npx wrangler deploy`**:
+
+```bash
+pnpm build          # prebuild generates static assets, then exports to out/
+pnpm deploy         # wrangler deploy  → uploads out/ as Worker Static Assets
+pnpm preview        # wrangler pages dev out  (local static preview)
+```
+
+`wrangler deploy --dry-run` (no auth) already validates: `Read 266 files from the assets directory out` — the OpenNext auto-config is bypassed because `wrangler.jsonc` is committed.
+
+> **Why not OpenNext?** An earlier build log showed `wrangler deploy` auto-detecting Next.js, running `@opennextjs/cloudflare migrate`, and failing on
+> `ENOENT: .next/standalone/.next/server/pages-manifest.json` — OpenNext requires `output: 'standalone'`, which is incompatible with our static export. Committing `wrangler.jsonc` with `assets.directory` prevents that.
+
+### Alternative: Cloudflare Pages dashboard
+
+If you deploy from the Pages Git panel instead of wrangler:
 
 | Setting | Value |
 | --- | --- |
@@ -175,13 +193,6 @@ Known renames: `Home → House`, `Fingerprint → FingerprintPattern`.
 | Node version | `NODE_VERSION=22` (as env var, or `.node-version`) |
 | Environment variables | `NEXT_PUBLIC_SITE_URL=https://docs.eedu.bd` |
 | Compatibility flags | None (no `nodejs_compat` needed — pure static) |
-
-### Build & preview locally
-
-```bash
-pnpm build     # prebuild generates static assets, then exports to out/
-pnpm preview   # local static server on out/ (npx serve)
-```
 
 ### Notes / tradeoffs of full static export
 

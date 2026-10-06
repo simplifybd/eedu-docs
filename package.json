@@ -6,7 +6,8 @@
     "prebuild": "node scripts/prebuild.mjs",
     "build": "next build",
     "dev": "next dev",
-    "preview": "npx --yes serve out",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler preview",
     "types:check": "next typegen && tsc --noEmit",
     "lint": "eslint"
   },
@@ -30,6 +31,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.3.8"
+    "eslint-config-next": "16.3.8",
+    "wrangler": "^4.147.0"
   }
 }
