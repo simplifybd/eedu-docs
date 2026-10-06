@@ -1,0 +1,197 @@
+name: Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: deploy-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # CI GATE: Runs Quality Checks First
+  verify:
+    name: Verify (typecheck · build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      NEXT_PUBLIC_SITE_URL: https://docs.eedu.bd
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint gate (best effort)
+        continue-on-error: true
+        run: pnpm lint --max-warnings=0
+
+      - name: Type-check gate
+        run: pnpm types:check
+
+      - name: Build gate (next build)
+        run: pnpm build
+
+  # CD GATE: Builds Docker Image, Pushes to GHCR, Deploys to VPS
+  deploy:
+    name: Build & Deploy to VPS
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    env:
+      NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+      PORT: ${{ vars.DOCS_PORT || '3007' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Extract Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=,format=short
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=${{ env.NEXT_PUBLIC_SITE_URL }}
+            PORT=${{ env.PORT }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Prepare deploy directory on VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            SUDO_PASS="${{ secrets.VPS_SUDO_PASSWORD }}"
+            mkdir -p /srv/apps/eedu/docs
+            if [ -n "$SUDO_PASS" ]; then
+              echo "$SUDO_PASS" | sudo -S chown -R $(id -un):$(id -un) /srv/apps/eedu/docs >/dev/null 2>&1 || true
+            fi
+
+      - name: Sync compose file to VPS
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "docker-compose.yaml"
+          target: "/srv/apps/eedu/docs"
+          strip_components: 0
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            cd /srv/apps/eedu/docs
+
+            # If a sudo password is configured, ensure the deploy user owns the
+            # directory (so .env/compose writes below need no sudo) and run
+            # docker via sudo. Otherwise assume user owns dir + docker group.
+            SUDO_PASS="${{ secrets.VPS_SUDO_PASSWORD }}"
+            if [ -n "$SUDO_PASS" ]; then
+              echo "==> Using sudo (VPS_SUDO_PASSWORD set)"
+              echo "$SUDO_PASS" | sudo -S chown -R $(id -un):$(id -un) /srv/apps/eedu/docs >/dev/null 2>&1 || true
+            fi
+            ls -la docker-compose.yaml
+
+            echo "==> Writing runtime .env from GitHub secrets"
+            cat > .env <<'ENVEOF'
+            NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
+            PORT=${{ env.PORT }}
+            ENVEOF
+
+            echo "==> Deploying latest image"
+            export DOCS_IMAGE="ghcr.io/${{ github.repository }}:latest"
+            DOCS_REPLICAS="${DOCS_REPLICAS:-1}"
+
+            run_docker() {
+              if [ -n "$SUDO_PASS" ]; then
+                echo "$SUDO_PASS" | sudo -S docker "$@"
+              else
+                docker "$@"
+              fi
+            }
+
+            if [ -n "$SUDO_PASS" ]; then
+              echo "$SUDO_PASS" | sudo -S docker login ghcr.io -u ${{ github.actor }} --password-stdin <<< "${{ secrets.GITHUB_TOKEN }}"
+              echo "$SUDO_PASS" | sudo -S DOCS_IMAGE="$DOCS_IMAGE" docker compose -f docker-compose.yaml pull eedu-docs
+              echo "$SUDO_PASS" | sudo -S DOCS_IMAGE="$DOCS_IMAGE" docker compose -f docker-compose.yaml up -d --force-recreate --scale "eedu-docs=${DOCS_REPLICAS}" eedu-docs
+              echo "$SUDO_PASS" | sudo -S docker image prune -f
+            else
+              echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+              docker compose -f docker-compose.yaml pull eedu-docs
+              docker compose -f docker-compose.yaml up -d --force-recreate --scale "eedu-docs=${DOCS_REPLICAS}" eedu-docs
+              docker image prune -f
+            fi
+
+            echo "==> Waiting for eedu-docs to report healthy"
+            ALL_HEALTHY=0
+            for i in $(seq 1 36); do
+              docs_statuses=$(run_docker compose -f docker-compose.yaml ps eedu-docs --format '{{.Health}}' 2>/dev/null || echo "")
+              unhealthy=$(printf '%s\n' "$docs_statuses" | grep -vc "healthy" || true)
+              echo "eedu-docs health=[$docs_statuses] (attempt $i/36)"
+              if [ -n "$docs_statuses" ] && [ "$unhealthy" = "0" ]; then
+                ALL_HEALTHY=1
+                break
+              fi
+              sleep 5
+            done
+            if [ "$ALL_HEALTHY" != "1" ]; then
+              echo "::error::eedu-docs did not become healthy. Recent logs:"
+              run_docker logs --tail 100 eedu-docs || true
+              exit 1
+            fi
