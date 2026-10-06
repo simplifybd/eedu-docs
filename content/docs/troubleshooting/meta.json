@@ -1,0 +1,9 @@
+{
+  "title": "Troubleshooting & FAQ",
+  "icon": "Wrench",
+  "pages": [
+    "attendance-sync-issues",
+    "payment-and-receipt-issues",
+    "faq"
+  ]
+}

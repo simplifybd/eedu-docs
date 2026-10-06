@@ -1,0 +1,9 @@
+{
+  "title": "Device & Biometric Setup",
+  "icon": "FingerprintPattern",
+  "pages": [
+    "device-cloud-config",
+    "user-id-mapping",
+    "offline-and-sync-troubleshooting"
+  ]
+}

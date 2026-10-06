@@ -1,0 +1,10 @@
+{
+  "title": "Everyday School Operations",
+  "icon": "School",
+  "pages": [
+    "add-teachers-and-permissions",
+    "class-routine-and-timetable",
+    "fee-collection-and-receipts",
+    "exams-marks-and-results"
+  ]
+}

@@ -1,0 +1,104 @@
+---
+title: Connect Your School's Own Domain
+description: Point your own domain at your eEdu school website by adding a CNAME and TXT records at your domain registrar.
+---
+
+Your school website already works at `yourschool.eedu.bd`. This guide puts it on **your own domain** — for example `www.dhakamodel.edu.bd` — in four steps. No static IPs, no servers to buy.
+
+> [!NOTE]
+> A custom domain is a paid (Pro) feature. If you don't see the **Domain** menu, contact your eEdu account manager to enable it.
+
+## What you'll need
+
+- Admin access to eEdu (owner account).
+- The login to your **domain registrar** account — wherever you bought the domain (GoDaddy, Namecheap, Hostinger, a .bd registrar, etc.).
+- The CNAME and TXT values that eEdu shows you (they're generated automatically).
+
+---
+
+## Step 1 — Add the domain in eEdu
+
+1. Go to **`Dashboard → Settings → Website/Domain`**.
+2. Click **Add Domain**.
+3. Type your full domain (e.g. `www.dhakamodel.edu.bd` or `dhakamodel.edu.bd`) and save.
+
+eEdu now prepares the domain and shows you a **DNS setup table** — three records with exact values. Keep this screen open or copy the values.
+
+> **Screenshot placeholder:** *The DNS records table showing three rows: CNAME, TXT (verification), TXT (SSL).*
+
+> [!TIP]
+> Typing the domain with or without `www.` is fine — eEdu handles both and redirects the root to www if needed.
+
+---
+
+## Step 2 — Add the DNS records at your registrar
+
+Log in to your domain registrar and open **DNS / Name Servers / Manage DNS**. Add the records exactly as eEdu lists them.
+
+### The three records to add
+
+| Type | Host (name) | Value (points to / text) |
+| --- | --- | --- |
+| **CNAME** | `www` | `app.eedu.bd` |
+| **TXT** | `_cf-custom-hostname` | the long verification text eEdu shows you |
+| **TXT** | `_acme-challenge` | the second text value eEdu shows you |
+
+> **Important for root domains:** registrars don't allow a CNAME on the bare domain (`dhakamodel.edu.bd` without www). So also add a **redirect** from the root to `www.dhakamodel.edu.bd` (most registrars have a "URL redirect" or "forwarding" option), or an **ALIAS record** at the root pointing to `www.dhakamodel.edu.bd`.
+
+| Setting | Your value |
+| --- | --- |
+| CNAME host | `www` |
+| CNAME value | `app.eedu.bd` |
+| TXT host | `_cf-custom-hostname` (for subdomain domains: `_cf-custom-hostname.yourname`) |
+| TXT value | paste from the eEdu DNS table — copy exactly, no extra spaces |
+| TTL | leave default (or 300s if you can set it) |
+
+> **Screenshot placeholder:** *Example registrar screen with the three DNS rows filled in.*
+
+> [!TIP]
+> TXT records must be entered **exactly** — a missing character or trailing space means verification will wait for a fix.
+
+---
+
+## Step 3 — Wait for the records to copy
+
+DNS changes spread across the internet. Wait **15 minutes to an hour** (usually just a few minutes) before verifying.
+
+---
+
+## Step 4 — Verify the domain in eEdu
+
+1. Back in **`Dashboard → Settings → Website/Domain`**, click **Verify** (or **Re-check**).
+2. Status changes show in the domain panel:
+
+| Status | Meaning |
+| --- | --- |
+| **Pending** | eEdu is waiting — records not all visible yet; wait a little and Verify again |
+| **Active / Verified** | Done! Your site is now reachable at your own domain |
+
+eEdu **automatically checks every hour** even if you don't click Verify, and finishes the setup itself once it detects the records.
+
+> **Screenshot placeholder:** *Domain status panel before (Pending) and after (Active/Verified).*
+
+---
+
+## Step 5 — Enjoy your branded site
+
+Visit `https://www.yourdomain` (clear your browser cache if it shows an old page). You should see your school's website with the address bar showing your own domain and a padlock.
+
+Your old `yourschool.eedu.bd` address keeps working too — both lead to the same site.
+
+---
+
+## Quick checklist
+
+1. Added the domain in eEdu and copied the three values.
+2. CNAME `www → app.eedu.bd` added at the registrar.
+3. Both TXT records added **exactly** as shown.
+4. Root domain redirect (`example.com → www.example.com`) added.
+5. Clicked **Verify** (or waited up to an hour for auto-verification).
+
+> [!NOTE]
+> Don't delete the TXT records after approval — eEdu keeps the free SSL certificate renewed automatically as long as the verification records stay in place.
+
+Next guide: **[Free SSL & verifying your connection](/docs/website-and-domain/ssl-and-verification)**.

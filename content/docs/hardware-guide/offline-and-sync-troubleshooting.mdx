@@ -1,0 +1,109 @@
+---
+title: Device Offline & Sync Troubleshooting
+description: Fix devices that show offline, punches that never arrive, and network sync problems step by step.
+---
+
+Device says it's fine but attendance isn't arriving? Work through this guide top to bottom — it covers the most common causes first.
+
+---
+
+## 1. Check the device's status in eEdu
+
+1. Go to **`Dashboard → Students → Attendance → Settings → Devices`**.
+2. Look at the status column:
+
+| Status | What it means | Next step |
+| --- | --- | --- |
+| **Active** | Device is connected and sending | (if problems: go to step 2) |
+| **Pending** | Device never sent a punch yet | go to step 2 |
+| **Offline / stale** | No punches received recently | go to step 2 |
+
+Also glance at the **Pending (buffer)** count — it should stay low. If it keeps growing, punches are arriving but not being processed (usually a server/worker hiccup that clears within minutes; contact support if it grows for over an hour).
+
+> **Screenshot placeholder:** *Device list with status, model, location and Pending buffer columns highlighted.*
+
+---
+
+## 2. Quick network checks (device side)
+
+1. On the device, open its **Network / Connection** screen and confirm:
+   - **IP address** is valid (not `0.0.0.0`).
+   - **Gateway** and **DNS** are set (or it's on DHCP).
+2. From a **laptop on the same network**, confirm the device responds, then confirm outbound web access works:
+   - Open your browser and visit `https://api.eedu.bd` — the page should load (a short error message is fine; a "can't reach this site" is not).
+3. If the school Wi-Fi/ERP network blocks outbound internet, add an allow rule for the eEdu server address on port `443`.
+
+> **Diagram placeholder:** *Device → Router → Internet → eEdu server, with a red X between router and internet when the connection fails.*
+
+---
+
+## 3. Common causes and their fixes
+
+### Cause A — Wrong server or port on the device
+
+Check the device settings against the table in [Connecting Your Device](/docs/hardware-guide/device-cloud-config):
+
+- Server address must be `api.eedu.bd`, port `443`.
+- The **push URL** must be entered exactly (no extra spaces): `https://api.eedu.bd/api/v1/devices/attendance/ingest`.
+
+### Cause B — Wrong or missing Device Secret Key
+
+1. In eEdu, open the device's **Punch Logs**.
+2. If punches appear with an **error / auth failed** status, the secret key on the device doesn't match eEdu's.
+3. Re-enter the key exactly (32 characters, case-sensitive).
+4. Only if the key is lost: use **Rotate Key** in the device list to generate a new one, then put the new key on the device.
+
+### Cause C — Device clock is wrong (times land on the wrong day)
+
+1. Set the device clock to **Asia/Dhaka** and enable NTP time sync.
+2. eEdu rejects punches whose time is far from server time when secure mode is on — keeping NTP on avoids this entirely.
+3. Re-punch and check the date in Punch Logs.
+
+### Cause D — Device set to "pull" mode instead of push
+
+Some devices default to **SDK/pull mode** (waiting for software to fetch). eEdu needs **Push mode** (the device sends punches itself). Switch Communication/Attendance mode to **Push/Command**.
+
+### Cause E — Device re-registered as Pending again
+
+If a device shows **Pending** after being Active: it likely got a **new serial** or the key was rotated. Keep the serial and the secret key matched between eEdu and the device (see the mapping guide).
+
+---
+
+## 4. Punches arrived but marked as errors
+
+Open **Punch Logs** and filter by the **Error** status:
+
+| Error pattern | Meaning | Fix |
+| --- | --- | --- |
+| "Unknown user" | User ID isn't a student/teacher in eEdu | Add the person, or fix the user ID on the device |
+| "Wrong person" | User ID collision | Re-number one of the colliding users |
+| "Auth failed" | Secret key mismatch | Re-enter the correct Device Secret Key |
+
+---
+
+## 5. Still stuck? Two manual fallbacks
+
+**Manual upload** — an authorized user can upload a batch of punches by hand:
+`Dashboard → Students → Attendance → Settings → Devices → (device) → Ingest / Manual upload`.
+
+**Export from device** — pull the device's attendance log to a file and send it to your eEdu support contact; they'll help load it.
+
+> [!WARNING]
+> Don't overwrite the device's offline buffer by clearing logs before they're pushed. Leave buffering ON; lost buffered punches can't be recovered.
+
+---
+
+## Quick reference card
+
+| Problem | Check first |
+| --- | --- |
+| No punches at all | Device push mode, server address, port 443, internet access |
+| Punches very late | Network speed + big buffer; they catch up automatically |
+| Wrong day/time | Device clock / NTP to Asia/Dhaka |
+| Auth/error status | Device Secret Key match; rotate if unsure |
+| Wrong person | User ID mapping (admission/employee number) |
+
+> [!TIP]
+> Between devices and rosters, 9 out of 10 support questions are one of the four things above. When in doubt, start with the **device clock** — it's the cheapest fix and the most commonly wrong.
+
+Need more? See **[Attendance logs won't sync](/docs/troubleshooting/attendance-sync-issues)** in Troubleshooting.

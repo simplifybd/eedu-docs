@@ -1,0 +1,109 @@
+---
+title: Class Routine & Timetable Setup
+description: Create classrooms, subjects and subject papers, then build the weekly class routine that powers period-wise attendance.
+---
+
+The class routine does more than display a schedule — it's what lets eEdu mark **period-wise attendance** and shows students/parents exactly what's next. Set it up once each term and reuse it.
+
+> [!NOTE]
+> Teaching period: best done before the term starts, so roll calls and period-wise attendance are ready from day one.
+
+---
+
+## Step 1 — Make sure classrooms exist
+
+1. Go to **`Dashboard → Students → Classrooms`**.
+2. Add your classes if they're missing (e.g. `Class 6-A`, `Class 9-B`), including the **shift** (Morning/Day/Evening) if your school runs multiple shifts.
+3. For each classroom, check the **academic year** is the current one.
+
+> **Screenshot placeholder:** *Classroom list showing Class, Shift and Academic year columns.*
+
+---
+
+## Step 2 — Add subjects
+
+1. Go to **`Dashboard → Students → Subjects`**.
+2. Click **Add Subject** and enter the name (e.g. `Mathematics`).
+3. For each subject, define its **papers**:
+
+| Paper setting | What it does |
+| --- | --- |
+| **Has CQ** | Creative/essay questions component |
+| **Has MCQ** | Multiple-choice component |
+| **Has Practical** | Lab/field component |
+| **Has Viva** | Oral component |
+
+4. For each enabled component, set the **Total marks** and **Pass marks** (e.g. CQ 50/pass 15, MCQ 25/pass 8).
+5. Save.
+
+> [!TIP]
+> Match these totals to your board handbook. They drive both grading and the printed marks sheet — you can't change pass marks per-exam later without editing the paper.
+
+> **Screenshot placeholder:** *Subject form with component toggles and total/pass mark fields.*
+
+---
+
+## Step 3 (optional) — Assign a subject set to a class
+
+If classes take different subjects (streams, optional groups):
+
+1. Open the classroom.
+2. Add the subjects that class studies.
+3. Where the school uses streams (Science/Business/Humanities), set the **stream group** on the classroom so the right subjects attach.
+
+---
+
+## Step 4 — Build the weekly routine
+
+1. Go to **`Dashboard → Students → Timetables`** (also shown as **Class Routine**).
+2. Click **Create / New Timetable** and pick the **classroom** and **academic year/term**.
+3. For each weekday, and each **period/slot**, fill in:
+
+| Field | What to enter |
+| --- | --- |
+| **Period / time** | e.g. Period 1 — 08:30–09:20 |
+| **Subject** | from the class's subject list |
+| **Teacher** | the teacher who takes this period |
+| **Room** | optional, e.g. `Science Lab` |
+| **Day** | Sun–Thu (and Thu-Sat if used) |
+
+4. As you fill cells, eEdu warns about **conflicts**:
+   - A teacher booked in two periods at once.
+   - A classroom assigned two subjects at once.
+5. Click **Save**. published copies appear in the teacher's **My Space** and, if enabled, on the public website's **Routine** page.
+
+> **Screenshot placeholder:** *The weekly grid editor with days across the top and periods down the side, one cell highlighted.*
+
+---
+
+## Step 5 — Verify & publish
+
+1. Open the timetable as a **teacher** (their My Space) — confirm they see only their own periods.
+2. Open the classroom view — confirm every period is covered.
+3. If you turn on period-wise attendance, attendance screens now show **per-period** marking instead of a single daily record (see the attendance settings in [Connecting Your Device](/docs/hardware-guide/device-cloud-config)).
+
+---
+
+## Tie-in: how the routine is used
+
+| Feature | Uses the routine for |
+| --- | --- |
+| **Period-wise attendance** | marks each period based on the slot a student is in |
+| **Auto-absent** | only checks periods that a student's routine says they should attend |
+| **Teacher attendance** | knows which teacher is teaching which period (and marks late/absent per slot) |
+| **Online routine page** | publishes the routine on the public site for parents |
+| **Exam schedule** | reuses the same classrooms/teachers when you book exams |
+
+---
+
+## Troubleshooting the routine
+
+| Problem | Fix |
+| --- | --- |
+| Teacher missing from dropdown | They haven't been added as a teacher yet — do the [Teachers guide](/docs/school-operations/add-teachers-and-permissions) first |
+| Subject missing in a class | Assign it in the classroom (Step 3) |
+| Conflict warning | Move one of the two periods — two slots can't share the same teacher |
+| Routine not on public site | Check the Routine is published and the website section is enabled (`Settings → Website`) |
+
+> [!TIP]
+> Keep one teacher as the "floating" cover teacher for vacant periods; routine conflicts warn about real clashes, so don't use the cover teacher in two live periods.

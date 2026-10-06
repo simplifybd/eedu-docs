@@ -1,0 +1,98 @@
+---
+title: Mapping Machine User IDs to Students & Teachers
+description: Match each device user ID to a student admission number or teacher employee ID so punches fall on the right person.
+---
+
+Every punch a device sends includes a **user ID**. For eEdu to know who that is, the device's user ID must equal the person's **admission number** (students) or **employee ID** (teachers).
+
+The good news: eEdu generates both numbers for you, so mapping is mostly a matter of enrolling the same numbers on the device.
+
+---
+
+## Step 1 — Get the eEdu numbers
+
+### For students
+
+1. Go to **`Dashboard → Students`** and make sure every student has been added and enrolled for the school year.
+2. Each student shows an **Admission number** (for example `260001`). This is the number the device must use.
+
+> **Screenshot placeholder:** *A student list showing the Roll and Admission number columns.*
+
+### For teachers
+
+1. Go to **`Dashboard → Teachers`**.
+2. Each teacher has an **Employee ID** (for example `000017`). This is the number the device must use.
+
+> [!TIP]
+> Need a paper copy to take to the device? Export the **enrollment roster** (students) or **teacher list** from the same screen — it prints the Roll, Name and Admission/Employee number in one column.
+
+---
+
+## Step 2 — Enroll people on the device using those numbers
+
+Inside ZKTeco/ADMS (or your device's user management):
+
+1. Open the device's **User Management** screen.
+2. For each person, use the **User ID field = their admission number or employee ID** (digits only, e.g. `260001`).
+3. Register their **fingerprint / face / card** against that same user ID.
+4. Upload users to the device.
+
+> [!NOTE]
+> The biometric template (the fingerprint/face scan) stays **on the device only**. You only give eEdu the matching **number** — never the scan itself.
+
+### If the device already has old user IDs
+
+Example: the device was previously used by another school with user ID `5` for "student X".
+
+**Option A (recommended for small corrections):** re-number the user on the device to match eEdu's admission number.
+
+**Option B (when you can't re-number):** ask your technician to set up a small "translator" — the connector rewrites old IDs to the correct admission/employee number before sending punches to eEdu.
+
+> [!WARNING]
+> Two people can never share the same user ID on one device. If a punch shows the wrong person, the number collision is the first thing to check.
+
+---
+
+## Step 3 — Assign the right device to the right people
+
+Each device has a **Target group** (set when you registered it, and editable later):
+
+- A device set to **Students** only matches admission numbers.
+- A device set to **Teachers** only matches employee IDs.
+- A device set to **both** tries both lists until it finds the person.
+
+So a staff-room device should be **Teachers** and a gate device **Students**. If a device is placed inside one class, you can also bind it to a single **classroom** so it only accepts that class's students.
+
+---
+
+## Step 4 — Verify the mapping
+
+1. Punch one student and one teacher on the device.
+2. Open **`Dashboard → Students → Attendance → Settings → Devices → <device> → Punch Logs`**.
+3. Confirm both punches show the **correct person name** and the right type (Student / Teacher).
+4. Check the same day's register — entries should say **Present** (or Late) for those people.
+
+> **Screenshot placeholder:** *A punch log line showing Device user ID, Person name, time, direction and status.*
+
+---
+
+## Fixing a wrong match
+
+| Symptom | Fix |
+| --- | --- |
+| Punch shows the wrong person's name | Two users share a user ID — re-number one on the device |
+| Punch shows "unknown / error" | User ID hasn't been enrolled as a student/teacher yet — add them in eEdu first |
+| Different device copies the same punch twice | Normal — duplicate punches are ignored automatically |
+| A teacher punch shows under a student | Device's Target group is wrong — change it in the device settings |
+
+---
+
+## Checklist for installers
+
+1. Student admission numbers match device user IDs.
+2. Teacher employee IDs match device user IDs.
+3. Device target group matches the people who use it.
+4. One test punch per type shows the right name in Punch Logs.
+5. Device clock is set to Asia/Dhaka.
+
+Next guide: **[Device offline & sync troubleshooting](/docs/hardware-guide/offline-and-sync-troubleshooting)** when punches aren't arriving.

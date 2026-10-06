@@ -1,0 +1,88 @@
+---
+title: Free SSL & Verifying Your Domain Connection
+description: Check that your domain is secure (padlock), enable automatic SSL, and confirm eEdu and your registrar are in sync.
+---
+
+Every custom domain on eEdu gets a **free SSL certificate** automatically — the little padlock and `https://` in the address bar. There's nothing to buy and nothing to install. This guide shows you how it works and how to confirm yours is active.
+
+---
+
+## Step 1 — Understand what's automatic
+
+When your DNS records are correct, eEdu quietly:
+
+1. Confirms you own the domain (using the TXT verification record from the [previous guide](/docs/website-and-domain/connect-your-domain)).
+2. Orders a **free SSL certificate** for your domain.
+3. Renews that certificate automatically forever after.
+
+Because of that, you usually never touch SSL settings. If the certificate is taking longer than expected, look at step 4 for the reasons.
+
+> **Diagram placeholder:** *Chain: Registrar DNS (CNAME + TXT) → eEdu checks ownership → certificate issued → visitor sees the padlock.*
+
+---
+
+## Step 2 — Check whether your domain is secure
+
+1. Visit `https://www.yourdomain` in your browser.
+2. Look for the **padlock** next to the address bar.
+
+| What you see | Meaning |
+| --- | --- |
+| Padlock + your school's name | SSL is active and verified |
+| Padlock (plain) | SSL active |
+| "Not secure" or warning page | Certificate not active yet — go to step 3 |
+
+> [!TIP]
+> Use your **phone on mobile data** to check (not the school's own Wi-Fi) so you're looking at the public internet, not a cached local copy.
+
+---
+
+## Step 3 — Check the status in eEdu
+
+1. Go to **`Dashboard → Settings → Website/Domain`**.
+2. The domain panel shows an SSL status:
+
+| Status | What it means | What to do |
+| --- | --- | --- |
+| **Verifying / Pending** | Records were just added; certificate being prepared | Wait 15–60 minutes, then click **Verify/Re-check** |
+| **Active** | SSL live | Nothing to do — you're done |
+| **Error** | Something's wrong | go to step 4 |
+
+---
+
+## Step 4 — Common SSL reasons to wait (and fixes)
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| Stuck "Verifying" for hours | TXT verification record missing or typo | Re-open the DNS table in eEdu, check the TXT values at your registrar match character-for-character, add/repair, click Verify |
+| Stuck after fixing TXT | The SSL/Acme TXT record also needed | Make sure **both** TXT records from the DNS table exist — not just one |
+| Works on www but not root | Root has no redirect | Add the root → `www` redirect at your registrar (see the previous guide) |
+| Old site still shows | Browser/router cache | Try a different device/network and a private window |
+
+> [!WARNING]
+> Don't remove the TXT records "now that it works" — the same records are what keeps the certificate **renewing**. Removal eventually makes the site fall back to Not Secure.
+
+---
+
+## Step 5 — Final check
+
+When everything is active:
+
+1. `https://www.yourdomain` loads your school site with a padlock.
+2. `https://yourdomain` (without www) **redirects** to the www address.
+3. The domain panel in eEdu shows **Active/Verified** for both the domain and SSL.
+
+---
+
+## Quick reference
+
+| Question | Answer |
+| --- | --- |
+| Do I pay for SSL? | No — free and automatic on custom domains |
+| Do I renew it? | No — eEdu renews automatically |
+| How long does SSL take to appear? | Usually a few minutes to an hour after DNS records |
+| What keeps it working? | The TXT records stay in your DNS |
+| Both websites still work? | Yes — your own domain and `yourschool.eedu.bd` both serve the same site |
+
+> [!TIP]
+> If you edit a TXT record and the domain panel is slow to update, simply click **Verify** — eEdu re-checks immediately rather than waiting for the hourly pass.
