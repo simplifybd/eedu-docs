@@ -1,106 +1,68 @@
 ---
 title: "Attendance: Logs Won't Sync or Look Wrong"
-description: Step-by-step fixes for punches that never arrive, arrive late, or land on the wrong day or person.
+description: Fix punches that never arrive, arrive late, or land on the wrong day or person.
 ---
 
-"Arrived and punched, but attendance says absent" — here's the fastest path to a fix. Work through the sections in order.
+<Figure src="/images/docs/diagram-device.svg" alt="Device to eEdu network path" caption="Work top-down: device → network → eEdu → the register." />
+
+"Punched but shows absent" — follow the sections in order.
 
 ---
 
-## 1. Did the punch reach eEdu at all?
+## 1. Did the punch reach eEdu?
 
-1. Go to **`Dashboard → Students → Attendance → Settings → Devices`**.
-2. Open the device's **Punch Logs** and set the filter to today.
+`Dashboard → Students → Attendance → Settings → Devices` → open the device's **Punch Logs** (filter today).
 
 | You see | Meaning | Next |
 | --- | --- | --- |
-| Punch listed | eEdu received it | go to section 2 |
-| Punch listed but **Error** | Received but couldn't match a person | go to section 4 |
-| Nothing listed | Punch never arrived | go to section 5 (device side) |
-
-> **Screenshot placeholder:** *Punch Logs screen with status tabs (New / Processed / Error).*
+| Punch listed | eEdu received it | §2 |
+| Punch but **Error** | No person matched | §4 |
+| Nothing | Never arrived | §5 |
 
 ---
 
-## 2. Punch arrived — why is the register still wrong?
+## 2. Punch arrived but the register looks wrong
 
-### Check the date rules
-
-- **The register only counts the class's day.** Open `Dashboard → Students → Attendance` and confirm you're viewing the right **classroom**, **shift** (Morning/Day/Evening) and **date**.
-- **Punch before the day's start time** (e.g. 8:30) is morning time, not the previous day — unless the device clock was wrong earlier.
-- **Today isn't final yet.** Present/Late decisions settle as the day goes; `ABSENT` for a past day is completed by the automatic absent-check (which never marks *today* prematurely).
-
-### Check for "Late" status instead of "Present"
-
-A punch after the class's **late cutoff** time marks the student **Late** (still attendance). View the column — the student may actually be there, just Late:
-
-`Dashboard → Students → Attendance → Settings` shows your school's **start time / late cutoff / grace minutes**. For example: start 08:30, cutoff 09:00 (+ 5 grace) means 09:02 → **Late**, 09:06 → you can leave for the automatic absent-check to decide.
+- **Check the view** — right **classroom**, **shift** and **date**? The register only counts the class's day.
+- **"Late", not "Present"** — a punch after the late cut-off (`Attendance → Settings`) is still attendance.
+- **Today isn't final** — the automatic absent-check never marks today early.
 
 ---
 
-## 3. The day looks half-empty
+## 3. Half-empty day
 
-If only some students appear:
-
-1. Confirm those students are **enrolled in the class for the active academic year** (`Dashboard → Students → Enrollments`).
-2. Confirm the device **target group** includes students (see the mapping guide) — a teacher-scoped device won't match student IDs.
-3. In **period-wise** mode, only students with a **routine period** that day are expected to appear; someone with no period that weekday is correctly skipped.
+1. Students must be **enrolled** in the class for the active year.
+2. The device's **target group** must include students.
+3. In **period-wise** mode, only students with a period that day appear.
 
 ---
 
-## 4. Punches show "Error" (unmatched)
+## 4. Punches show "Error"
 
-The user ID on the device doesn't match anyone in eEdu:
-
-1. Open the error row — note the **device user ID**.
-2. Compare with the student's **admission number** / teacher's **employee ID** (`Dashboard → Students` / `Dashboard → Teachers`).
-3. Fix the match:
-   - Add the missing student/teacher, **or**
-   - Re-number the user ID on the device.
-4. Re-punch (or re-send the buffered log). Once matched, the record processes normally and any earlier absence is corrected automatically.
-
-Errors are harmless to ignore while fixing — they don't create fake absences.
+The device user ID doesn't match anyone: note the ID, compare with the student's admission no. / teacher's employee ID, then fix the mapping or re-enroll. Errors never create fake absences. See [User ID mapping](/docs/hardware-guide/user-id-mapping).
 
 ---
 
-## 5. Nothing arrived at all (device side)
+## 5. Nothing arrived (device side)
 
-Head to the device-focused guide — this covers push mode, server address, secret key, clock and network in depth:
-
-→ **[Device Offline & Sync Troubleshooting](/docs/hardware-guide/offline-and-sync-troubleshooting)**
-
-Two-minute version: check **push mode** is on, **server = `api.eedu.bd` / port 443**, **secret key** matches, **internet** works, **device clock = Asia/Dhaka**. While the network is down, the device **buffers** punches and sends them automatically on reconnect — so before doing anything, wait a few minutes after the network returns.
+Check push mode, server `api.eedu.bd` / port 443, secret key, internet, and the clock (`Asia/Dhaka`). Full walkthrough: [Device offline & sync](/docs/hardware-guide/offline-and-sync-troubleshooting). After the network returns, wait a few minutes — the device buffers and re-sends.
 
 ---
 
-## 6. Backdated repairs
+## 6. Repair a past day
 
-Need to fix a past day by hand?
-
-1. Open that day's register in `Dashboard → Students → Attendance`.
-2. Mark individuals **Present/Late** (capped at the allowed **back-date limit**, usually 7 days — for older days, contact your eEdu support contact).
-3. A future date can't be marked — correct the date first.
-
-> [!WARNING]
-> Don't mark *today* as a repair for "the device was off this morning" — a correct punch later automatically upgrades the day. If the device is still down, a manual Present mark is the right tool.
-
----
-
-## 7. Speeding up "sync" when staff are anxious
-
-- **Punches process automatically within minutes** — a large buffer drains in bursts (about 1,000 records every cycle). If the buffer count keeps climbing for over an hour, contact support.
-- **Guardian alerts** for absences are sent on WhatsApp → SMS → in-app, in that order. If a parent got nothing, check the school's **notification toggles** (`Attendance settings → Guardian SMS on`) before assuming the absent was wrong.
+Open that day's register and mark individuals (within the back-date limit, usually 7 days). You can't mark a future date. Don't mark *today* as a repair — a later correct punch upgrades it automatically.
 
 ---
 
 ## Quick decision table
 
-| Symptom | Do this first |
+| Symptom | Do first |
 | --- | --- |
 | Nothing in Punch Logs | Device guide (network/mode/key/clock) |
-| Punch here, register empty | Wrong class/shift/date being viewed |
-| "Late" not "Present" | Grace/late-cutoff settings |
+| Punch here, register empty | Wrong class/shift/date |
+| "Late" not "Present" | Late-cutoff settings |
 | Error status | User ID mapping |
-| Absent looks wrong | Wrong enrollment/academic year or unapproved leave |
+| Absent looks wrong | Enrollment / academic year / approved leave |
 
-Next: **[Payment status & receipt verification](/docs/troubleshooting/payment-and-receipt-issues)**.
+Next: **[Payment & Receipt Issues](/docs/troubleshooting/payment-and-receipt-issues)**.

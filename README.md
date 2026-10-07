@@ -128,6 +128,20 @@ content/docs/
 - Use `<Cards>`/`<Card>` and tables for navigation and reference content.
 - Screenshot and diagram placeholders are written as visible `> [!NOTE]` boxes so an editor knows what to add later.
 
+### Images & video
+
+Global MDX components are available in every page (no import needed):
+
+```mdx
+<Figure src="/images/docs/example.jpg" alt="What the image shows" caption="Shown under the image." />
+<YouTube id="VIDEO_ID" title="Video title" caption="Optional caption." />
+```
+
+- Image files live in `public/images/docs/` — keep them optimised (≤1280px wide, JPEG quality ~80).
+- `YouTube` uses the privacy-friendly `youtube-nocookie.com` embed.
+- The bundled images, diagrams and videos are **placeholders** — replace them with real eEdu screenshots and videos when available (keep the same file paths / video ids).
+
+
 ### Icons
 
 Meta `icon` values are **lucide-react** component names. Note that newer lucide versions renamed icons — verify first with:

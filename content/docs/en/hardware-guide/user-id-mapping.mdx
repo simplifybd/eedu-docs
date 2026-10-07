@@ -1,98 +1,53 @@
 ---
-title: Mapping Machine User IDs to Students & Teachers
-description: Match each device user ID to a student admission number or teacher employee ID so punches fall on the right person.
+title: Map Device User IDs to Students & Teachers
+description: Make each fingerprint or card match the right person by keeping device user IDs aligned with eEdu.
 ---
 
-Every punch a device sends includes a **user ID**. For eEdu to know who that is, the device's user ID must equal the person's **admission number** (students) or **employee ID** (teachers).
+A device only sends a **user ID** (the number stored on the machine). eEdu matches that number to a student or teacher. Keep the two in sync and attendance is automatic.
 
-The good news: eEdu generates both numbers for you, so mapping is mostly a matter of enrolling the same numbers on the device.
+<Figure src="/images/docs/diagram-id-mapping.svg" alt="Device user ID matched to an eEdu admission or employee number" caption="One number, two sides — match them and every punch lands on the right person." />
 
 ---
 
-## Step 1 — Get the eEdu numbers
+## The rule
 
-### For students
+Use the **same number** on both sides:
 
-1. Go to **`Dashboard → Students`** and make sure every student has been added and enrolled for the school year.
-2. Each student shows an **Admission number** (for example `260001`). This is the number the device must use.
+| On the device | In eEdu |
+| --- | --- |
+| Enrolled user ID, e.g. `017` | **Admission no.** (student) or **Employee ID** (teacher) |
 
-> **Screenshot placeholder:** *A student list showing the Roll and Admission number columns.*
+---
 
-### For teachers
+## Option A — Renumber the device (recommended)
 
-1. Go to **`Dashboard → Teachers`**.
-2. Each teacher has an **Employee ID** (for example `000017`). This is the number the device must use.
+Best for a new install or small corrections.
+
+1. In eEdu, note the student's **Admission no.** (or teacher's **Employee ID**).
+2. On the device, re-enroll that person with the matching user ID.
+3. Punch once to confirm it shows the correct name in **Punch Logs**.
+
+---
+
+## Option B — Map inside eEdu
+
+Best when re-enrolling is not practical.
+
+1. Go to **`Dashboard → Students → Attendance → Settings → Devices`**.
+2. Open the device's **user mapping**.
+3. Enter the device user ID and choose the matching student/teacher.
+4. Save.
+
+---
+
+## Check it worked
+
+Open **`Dashboard → Students → Attendance → Settings → Devices` → Punch Logs**. Each punch shows **Device user ID**, the matched **Person**, time, direction and status.
+
+- **Processed** → matched to a person.
+- **Error / Unmapped** → the ID has no match; map it or re-enroll it.
 
 > [!TIP]
-> Need a paper copy to take to the device? Export the **enrollment roster** (students) or **teacher list** from the same screen — it prints the Roll, Name and Admission/Employee number in one column.
+> If two people share a device ID, the later mapping wins. Check the punch log after bulk changes.
 
----
-
-## Step 2 — Enroll people on the device using those numbers
-
-Inside ZKTeco/ADMS (or your device's user management):
-
-1. Open the device's **User Management** screen.
-2. For each person, use the **User ID field = their admission number or employee ID** (digits only, e.g. `260001`).
-3. Register their **fingerprint / face / card** against that same user ID.
-4. Upload users to the device.
-
-> [!NOTE]
-> The biometric template (the fingerprint/face scan) stays **on the device only**. You only give eEdu the matching **number** — never the scan itself.
-
-### If the device already has old user IDs
-
-Example: the device was previously used by another school with user ID `5` for "student X".
-
-**Option A (recommended for small corrections):** re-number the user on the device to match eEdu's admission number.
-
-**Option B (when you can't re-number):** ask your technician to set up a small "translator" — the connector rewrites old IDs to the correct admission/employee number before sending punches to eEdu.
-
-> [!WARNING]
-> Two people can never share the same user ID on one device. If a punch shows the wrong person, the number collision is the first thing to check.
-
----
-
-## Step 3 — Assign the right device to the right people
-
-Each device has a **Target group** (set when you registered it, and editable later):
-
-- A device set to **Students** only matches admission numbers.
-- A device set to **Teachers** only matches employee IDs.
-- A device set to **both** tries both lists until it finds the person.
-
-So a staff-room device should be **Teachers** and a gate device **Students**. If a device is placed inside one class, you can also bind it to a single **classroom** so it only accepts that class's students.
-
----
-
-## Step 4 — Verify the mapping
-
-1. Punch one student and one teacher on the device.
-2. Open **`Dashboard → Students → Attendance → Settings → Devices → <device> → Punch Logs`**.
-3. Confirm both punches show the **correct person name** and the right type (Student / Teacher).
-4. Check the same day's register — entries should say **Present** (or Late) for those people.
-
-> **Screenshot placeholder:** *A punch log line showing Device user ID, Person name, time, direction and status.*
-
----
-
-## Fixing a wrong match
-
-| Symptom | Fix |
-| --- | --- |
-| Punch shows the wrong person's name | Two users share a user ID — re-number one on the device |
-| Punch shows "unknown / error" | User ID hasn't been enrolled as a student/teacher yet — add them in eEdu first |
-| Different device copies the same punch twice | Normal — duplicate punches are ignored automatically |
-| A teacher punch shows under a student | Device's Target group is wrong — change it in the device settings |
-
----
-
-## Checklist for installers
-
-1. Student admission numbers match device user IDs.
-2. Teacher employee IDs match device user IDs.
-3. Device target group matches the people who use it.
-4. One test punch per type shows the right name in Punch Logs.
-5. Device clock is set to Asia/Dhaka.
-
-Next guide: **[Device offline & sync troubleshooting](/docs/hardware-guide/offline-and-sync-troubleshooting)** when punches aren't arriving.
+<YouTube id="TuhthMHn3oA" title="ZKTeco fingerprint enrollment" caption="Reference: adding users and fingerprints on a ZKTeco device." />

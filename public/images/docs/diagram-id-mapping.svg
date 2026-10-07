@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" role="img" aria-label="Matching the device user ID with the eEdu admission or employee number">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="960" height="280" fill="#ffffff"/>
+  <g font-family="system-ui,Segoe UI,Roboto,sans-serif">
+    <!-- Device side -->
+    <rect x="60" y="70" width="300" height="140" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="210" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Device (machine)</text>
+    <rect x="130" y="128" width="160" height="52" rx="10" fill="#0b72b5" opacity="0.12" stroke="#0b72b5"/>
+    <text x="210" y="160" text-anchor="middle" font-size="18" font-weight="700" fill="#0b72b5">User ID 017</text>
+
+    <!-- equals -->
+    <text x="480" y="156" text-anchor="middle" font-size="40" font-weight="700" fill="#94a3b8">=</text>
+
+    <!-- eEdu side -->
+    <rect x="600" y="70" width="300" height="140" rx="14" fill="#41a62a" opacity="0.08" stroke="#41a62a" stroke-width="2"/>
+    <text x="750" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">eEdu (person)</text>
+    <rect x="670" y="124" width="160" height="26" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="750" y="143" text-anchor="middle" font-size="14" fill="#0f172a">Admission no. 017</text>
+    <rect x="670" y="158" width="160" height="26" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="750" y="177" text-anchor="middle" font-size="14" fill="#0f172a">Employee ID 017</text>
+
+    <text x="480" y="246" text-anchor="middle" font-size="13" fill="#64748b">Keep the same number on the device and in eEdu so every punch matches the right person.</text>
+  </g>
+</svg>

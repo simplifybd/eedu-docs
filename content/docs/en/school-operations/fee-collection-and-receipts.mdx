@@ -1,148 +1,70 @@
 ---
-title: Student Fee Collection & QR Receipts
-description: Collect fees at the cash counter or online, apply discounts and installments, and print receipts with a QR code parents can verify.
+title: Student Fees & QR Receipts
+description: Set up fees, collect at the counter or online, and print receipts parents can verify by QR.
 ---
 
-This guide covers the full money path: setting up fee items, collecting at the counter, printing a QR receipt, and letting parents pay online.
-
----
-
-## Part 1 — Set up the fee items
-
-### Fee categories
-
-eEdu provides 18 built-in fee heads to choose from:
-
-| Head | Head | Head |
-| --- | --- | --- |
-| Tuition Fee | Admission Fee | Exam Fee |
-| Sport Fee | Transport Fee | Library Fee |
-| Hostel Fee | Uniform Fee | Stationary Fee |
-| Laboratory Fee | Development Fee | Annual Fee |
-| Re-Admission Fee | IT Fee | Medical Fee |
-| Excursion Fee | Late Fine | Custom Fee |
-
-### Add a fee to a student
-
-1. Go to **`Dashboard → Finance → Student Fees`** (or `Dashboard → Students → Fees`).
-2. Click **Add Fee**, choose the student and category:
-
-| Field | What to enter |
-| --- | --- |
-| **Category / Label** | e.g. Tuition Fee |
-| **Amount** | the headline charge |
-| **Discount** | fixed amount or percentage (0–100%) |
-| **Fine** | optional extra, e.g. late fine |
-| **Month / Year** | which billing period this covers |
-| **Due date** | shown to the parent |
-
-3. Save. The bill appears on the student's fee statement.
-
-> **Screenshot placeholder:** *Add Fee form with Amount, Discount and Due date fields.*
-
-### Recurring monthly fees (use a template instead)
-
-For monthly bills (the common case):
-
-1. Go to **`Dashboard → Finance → Fee Templates`** → **New Template**.
-2. Name it (e.g. `Class 6 monthly`) and add items (Tuition ৳1500, Development ৳300, …).
-3. Set **Generate on day** (e.g. `1`) and **Due after day** (e.g. `10`).
-4. Choose which classroom it applies to, and save.
-
-Every month on the trigger day, eEdu **automatically creates** that month's fee rows for each enrolled student. You still collect them in Part 2.
-
-> [!TIP]
-> Set the due offset to 10–15 so parents who pay on the 1st aren't immediately overdue.
+<Figure src="/images/docs/fees.jpg" alt="A piggy bank" caption="From fee setup to a QR-verified receipt." />
 
 ---
 
-## Part 2 — Collect fees (cash counter)
+## 1. Set up the fee
 
-1. Go to **`Dashboard → Finance → Collect Payment`** (or **Statements**).
-2. **Search the student** by name or admission number.
-3. The unpaid fees show in a list — **tick the ones being paid**.
-4. Enter the **amount received** and the **payment method** (Cash, Bank, Mobile Banking, Cheque, Card/Online, Wallet, or **Free** for no-charge bills).
-5. Click **Pay**.
+**One-off:** `Dashboard → Students → Fees` → **Add Fee** → student, category, amount, discount, month/year, due date → Save.
 
-What happens automatically:
+**Monthly (recommended):** `Dashboard → Students → Fees → Templates` → **New Template** → add items (Tuition ৳1500, …), set **generate on day** and **due after day**, pick the classroom. eEdu then creates each month's bills automatically.
 
-- A **receipt is created** and the fees turn **Paid** (or **Partially Paid** if the amount doesn't cover everything — the rest stays as a remaining balance).
-- The **unchanged totals are locked** — two cashiers can't collect the same bill twice, even at the same moment.
-- An **audit record** is saved showing exactly who collected from whom.
-
-> [!WARNING]
-> Each payment uses one method. If a parent pays half cash and half by wallet, collect it as two separate payments — this keeps the day's cash register totals clean.
-
-**Overpayments:** the system refuses a payment larger than the remaining balance (`Payment amount exceeds total remaining due`). Collect the exact amount or less.
+Built-in fee heads include Tuition, Admission, Exam, Transport, Hostel, Library, Development and more.
 
 ---
 
-## Part 3 — Print the receipt (with QR code)
+## 2. Collect at the counter
 
-1. From the confirmation screen, click **Print / Download receipt**.
-2. A PDF receipt opens with:
-   - Institute name, logo and address.
-   - **Receipt number** (e.g. `RCT-20261006-1A2B3C4D`), date, student and class.
-   - Each fee line and the total paid.
-   - A **QR code** in the corner.
-3. Print it (the QR prints at any size) or send the PDF to the parent.
+1. `Dashboard → Students → Payment History` → **Collect Payment** (or open the statement).
+2. Search the student, **tick the bills being paid**.
+3. Enter **amount received** and **method** (Cash, Bank, Mobile Banking, Cheque, Card/Online, Wallet, Free).
+4. Click **Pay**.
 
-> **Screenshot placeholder:** *A sample receipt PDF with the QR code highlighted in the corner.*
-
-**Already-paid lookups:** find any receipt later via **`Dashboard → Finance → Receipts`** — search by receipt number or student.
+The bill turns **Paid/Partial**, totals are locked against double collection, and an **audit record** is saved. Overpayments are refused — collect the exact remaining amount.
 
 ---
 
-## Part 4 — Parents verify a receipt (QR)
+## 3. Print the QR receipt
 
-Anyone (no login needed) can verify a printed receipt:
+From the confirmation, click **Print / Download receipt**. The PDF shows institute details, receipt number, each fee line, the total, and a **QR code**.
 
-1. Scan the QR code with any phone camera.
-2. It opens a **verification page** on the eEdu public site showing: receipt number, amount, date, institute and student.
-3. If the receipt was altered or fake, the page shows **"signature invalid — this receipt may be forged"**.
-
-> **Diagram placeholder:** *Printed receipt → phone scans QR → verification page shows "Verified" with checkmark.*
-
-> [!TIP]
-> Encourage the accounts office to verify large receipts by QR before accepting them elsewhere — it takes two seconds and stops photocopier fraud.
+<Figure src="/images/docs/diagram-receipt.svg" alt="A receipt QR scanned by a phone to verify on eEdu" caption="Anyone can verify a receipt in two seconds — no login needed." />
 
 ---
 
-## Part 5 — Let parents pay online
+## 4. Parents verify a receipt
 
-1. First connect an online payment account: **`Dashboard → Finance → Payment Gateways`** → **Add** and choose bKash, Nagad, SSLCommerz, ShurjoPay, aamarPay, EPS or DGePay.
-2. Enter the merchant credentials for that gateway and save.
-3. Turn on online payment for the student/parent portal (`Settings → Finance`).
-
-Parents now see a **"Pay Online"** button on their child's fee statement and can pay from home. When they do:
-
-- Payment goes through **your institute's own merchant account** (money arrives in your bKash/bank, not eEdu).
-- eEdu watches the gateway response, and once the gateway confirms success, marks the fee **Paid** and creates the same QR receipt.
-- If the gateway says failed, nothing is recorded — no phantom half-paid bill.
-
-> [!NOTE]
-> The payment page is a redirect to the gateway (bKash/Nagad/etc.). If the parent's browser closes mid-payment, the pending payment check (see Troubleshooting) settles it automatically.
+Scan the QR with any phone camera → opens the eEdu verification page showing receipt number, amount, date, institute and student. A tampered or fake receipt shows **“signature invalid”**.
 
 ---
 
-## Part 6 — Discounts & installment plans (handy for offices)
+## 5. Let parents pay online
 
-- **Waive part of a bill:** open the fee → set **Waived amount** → the bill becomes "Waived" if nothing remains. Great for scholarships and staff children.
-- **Spread a big bill:** **`Dashboard → Finance → Installment plans`** → **New**. Choose the total, the number of installments (2–60) and a due day. eEdu splits it evenly into monthly fees — the last installment absorbs any rounding.
+1. Go to **`Dashboard → Billing → Payment Gateway`**, add a provider (bKash / Nagad / SSLCommerz / DGePay …), and enter your merchant credentials.
+2. Enable online payment for the student/parent portal.
 
-> [!TIP]
-> Use a **Free (৳0)** payment for full scholarships: it creates a proper zero-receipt and audit trail instead of silently deleting the bill.
+Parents then see **Pay Online** on the fee statement. Money goes to **your own account**; eEdu marks the fee paid and creates the same QR receipt once the gateway confirms.
+
+<YouTube id="HMNT2DiQJLI" title="How to use bKash merchant payment" caption="Reference: how parents complete a mobile-wallet payment." />
 
 ---
+
+## Discounts & installments
+
+- **Scholarship:** open the fee → set **Waived amount** (use a free ৳0 payment for a clean audit trail).
+- **Spread a big bill:** `Dashboard → Students → Fees → Installment Plans` → split into 2–60 monthly installments.
 
 ## Troubleshooting
 
 | Problem | Fix |
 | --- | --- |
-| Student's bill not showing | Check month/year and confirm the fee is for the active classroom |
-| Can't collect more than remaining | Collect the exact remaining amount, or waive/discount first |
-| Online payment stuck "Pending" | eEdu settles it on return/verification; check the payment status (see [Payment status checks](/docs/troubleshooting/payment-and-receipt-issues)) |
-| Receipt says "invalid" when scanned | Receipt was altered → issue a new receipt and void the old one |
-| Template not generating | Confirm template is Active and the generation day passed |
+| Bill not showing | Check month/year and active classroom |
+| “Exceeds remaining due” | Collect less, or waive/discount first |
+| Online payment stuck | eEdu settles on return — see [payment issues](/docs/troubleshooting/payment-and-receipt-issues) |
+| Receipt shows invalid | Issue a new receipt and void the old one |
 
-Next guide: **[Exams, Marks & Results](/docs/school-operations/exams-marks-and-results)**.
+Next: **[Exams, Marks & Results](/docs/school-operations/exams-marks-and-results)**.

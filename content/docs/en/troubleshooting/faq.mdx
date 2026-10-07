@@ -3,108 +3,82 @@ title: Frequently Asked Questions
 description: Short answers to the questions every school office asks about eEdu.
 ---
 
-Quick answers to common questions. Where a topic has a full guide, the link is bolded.
+<Figure src="/images/docs/support.jpg" alt="Wooden letters spelling FAQ" caption="Short answers to the questions we hear most often." />
+
+Quick answers. Where a topic has a full guide, the link is bold.
 
 ---
 
 ## Accounts & access
 
-**Can one person work in more than one school on the same login?**
-Yes. Use the **workspace switcher** (top-left of the dashboard) to move between schools you belong to. Permissions are separate per school.
+**One login for several schools?** Yes — use the **workspace switcher** in the dashboard. Permissions are separate per school.
 
-**A teacher can't see a menu / "access denied".**
-Their permission was set to **Read** or **Off** for that area. Ask the **owner** to open `Dashboard → Account → Members` and widen the feature. Members also can't approve leave or administer salary — that's owner-only by design.
+**A teacher can't see a menu?** Their permission is **Read/Off**. The **owner** widens it in `Dashboard → Account → Members`. Only owners approve leave and run salary. See [Teachers & Permissions](/docs/school-operations/add-teachers-and-permissions).
 
-**Invitation email expires / teacher didn't accept.**
-Send a fresh invite from `Dashboard → Teachers → <teacher> → Dashboard access`. The new link works immediately.
+**Invitation expired?** Open the teacher → **Dashboard access** → send a new invite.
 
-**Who is the "Owner"?**
-The person who registered the institute. Only the owner/billing access can manage team members, subscription and publishing. See [Teachers & Permissions](/docs/school-operations/add-teachers-and-permissions).
+**Who is the owner?** Whoever registered the institute — the only one who manages team, subscription and publishing.
 
 ---
 
 ## Attendance & devices
 
-**Device pushed punches but nothing shows.**
-Check the device's **Punch Logs** — a **Processed** row should appear within minutes. If not, work through [Logs won't sync](/docs/troubleshooting/attendance-sync-issues). Devices buffer offline, so a reconnect usually catches everything up.
+**Punches arrive but nothing shows?** Check the device's **Punch Logs** — a **Processed** row should appear within minutes, else see [Logs won't sync](/docs/troubleshooting/attendance-sync-issues).
 
-**Punches arrive with "Error".**
-The user ID on the device isn't matched to a student/teacher. Fix the **user ID mapping** — see [Mapping user IDs](/docs/hardware-guide/user-id-mapping).
+**Punches show "Error"?** The user ID isn't matched — fix [mapping](/docs/hardware-guide/user-id-mapping).
 
-**Device clock is wrong / times land on the wrong day.**
-Set the device to **Asia/Dhaka** and turn on NTP time sync. Then re-test. See [Device & Biometric Setup](/docs/hardware-guide/device-cloud-config).
+**Wrong day/time?** Set the device to **Asia/Dhaka** + NTP — see [Device setup](/docs/hardware-guide/device-cloud-config).
 
-**Can my school use a device bought for another school?**
-Technically yes — register it as a new device and map fresh user IDs. Remember the serial belongs to one school; if it shows "already registered", contact support.
-
-**Automatic absences look wrong for one student.**
-First check: is the student actually **enrolled** for this academic year, does their **class** match the device, and is their **approved leave** recorded? A student with approved leave shows as **On Leave**, not absent.
+**Absence looks wrong?** Check the student is enrolled, the class matches the device, and any **approved leave** is recorded (leave shows **On Leave**, not absent).
 
 ---
 
 ## Fees & payments
 
-**How do parents pay online?**
-Connect a gateway first (`Dashboard → Finance → Payment Gateways`), then turn on online payment in settings. Parents pay through **your** bKash/Nagad/SSLCommerz merchant account. See [Fee Collection & QR Receipts](/docs/school-operations/fee-collection-and-receipts).
+**How do parents pay online?** Connect a gateway first, then enable online payment — money goes to **your own** bKash/Nagad account. See [Fee Collection](/docs/school-operations/fee-collection-and-receipts).
 
-**Parent paid online but it's still Pending.**
-Use **Check / Verify Payment** — eEdu asks the gateway and settles it. See [Payment status checks](/docs/troubleshooting/payment-and-receipt-issues).
+**Payment stuck on Pending?** Click **Check / Verify Payment** — see [payment issues](/docs/troubleshooting/payment-and-receipt-issues).
 
-**How do I verify a printed receipt is genuine?**
-Scan its **QR code** — it opens a public verification page. An altered receipt shows "may be forged". See [Receipt verification](/docs/troubleshooting/payment-and-receipt-issues).
+**How do I verify a receipt?** Scan its QR — the public page shows **Verified**; an altered receipt says "may be forged".
 
-**Do fees generate automatically every month?**
-If you use a **fee template** — yes, on the trigger day each month. See the template section of [Fee Collection](/docs/school-operations/fee-collection-and-receipts).
+**Do fees generate each month?** Yes, if you use a **fee template**.
 
-**Can part of a bill be waived?**
-Yes — set a **waived amount** or discount on the fee; the bill becomes "Waived" if nothing remains. Big bills can also be split into monthly **installments** (2–60).
+**Can part of a bill be waived?** Yes — set a **waived amount**/discount; big bills can be split into **installments** (2–60).
 
 ---
 
 ## Exams & results
 
-**GPA shows 0.00 even though the student passed most subjects.**
-One subject below the pass mark (F) **fails the whole result** — this matches Board rule. Check the failed subject in the tabulation sheet. See [Exams, Marks & Results](/docs/school-operations/exams-marks-and-results).
+**GPA 0.00 despite passing most subjects?** One failed subject (F) fails the whole result (Board rule) — check the tabulation sheet. See [Exams & Results](/docs/school-operations/exams-marks-and-results).
 
-**Can I change a mark after results are published?**
-Yes — **unpublish** the session, correct the mark, **republish**. Until you unpublish, edits are blocked on purpose.
+**Change a mark after publishing?** Yes — **unpublish** → correct → **republish**.
 
-**Where do admit cards come from?**
-`Dashboard → Students → Exams & Results → Admit Cards`, pick the class + term, and download the PDFs in bulk. Admit cards don't need marks entered.
+**Where are admit cards?** `Exam Suite → Admit Cards` → pick class + term → bulk PDF.
 
 ---
 
 ## Website & domain
 
-**My domain shows "Pending" for a long time.**
-Usually a missing or mistyped TXT record at your registrar. Re-open the DNS table, copy the values **exactly**, then click **Verify** in `Dashboard → Settings → Website/Domain`. See [Connect Your Domain](/docs/website-and-domain/connect-your-domain).
+**Domain stuck on Pending?** Usually a missing/mistyped TXT record — copy exactly, then **Verify**. See [Connect Your Domain](/docs/website-and-domain/connect-your-domain).
 
-**Do I have to renew the SSL certificate myself?**
-No — it's free and renews automatically. Just keep the two TXT records in place. See [Free SSL & Verification](/docs/website-and-domain/ssl-and-verification).
+**Renew SSL myself?** No — it's free and automatic; keep the TXT records. See [SSL & Verification](/docs/website-and-domain/ssl-and-verification).
 
-**Can I have both my own domain and the free one?**
-Yes — `yourschool.eedu.bd` and `www.yourdomain` both serve the same website.
-
-**How do parents check results on the website?**
-If you publish results and enable the public results section, parents enter the **roll number** on the site's Results page — no login required.
+**Own domain and free subdomain together?** Yes, both serve the same site.
 
 ---
 
-## Security & privacy
+## Security
 
-**What happens to fingerprint data?**
-Biometric scans stay **only on the device**. eEdu stores numbers (admission/employee ID) and never receives a fingerprint or face image. See [Device setup](/docs/hardware-guide/device-cloud-config).
+**Where does fingerprint data go?** Scans stay **only on the device**; eEdu stores numbers (admission/employee ID), never a fingerprint or face image.
 
-**Is the Device Secret Key transferable?**
-No. Treat it like a password. If you think it leaked, **rotate the key** in the device list — the old one stops working immediately.
+**Can I share the Device Secret Key?** No — treat it like a password. If unsure, **rotate** it.
 
-**I forgot my password.**
-Use **Forgot password** on the login screen (email or phone OTP). Cooldowns apply to too many OTP requests — wait a minute and retry.
+**Forgot my password?** Use **Forgot password** on the login screen (email/phone OTP).
 
 ---
 
 ## Still stuck?
 
 - Re-read the matching guide from the [Home page](/docs).
-- Contact **eEdu support** from the in-app support chat with: your school name, the screen you're on, and one sentence describing what you expected vs what happened.
-- For payment mismatch issues, include the **payment reference from the gateway** — it makes reconciliation instant.
+- In the in-app support chat, tell us your school name, the screen, and what you expected vs what happened.
+- For payment issues, include the gateway **payment reference**.

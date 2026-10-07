@@ -1,82 +1,62 @@
 ---
-title: Staff Payroll, Salary & Loans
-description: Set salary structures, run monthly payroll, pay staff, generate payslips, and manage advances and loans.
+title: Payroll, Salary & Loans
+description: Set salary structures, run monthly payroll, generate payslips, and manage advances and loans.
 ---
 
-Payroll takes each teacher's **salary structure**, adds their attendance and deductions, and produces a payslip you can pay and print — all from the **Teachers → Salary** area.
+<Figure src="/images/docs/payroll.jpg" alt="Finance and accounting on a desk" caption="Set the structure once, then run payroll in minutes each month." />
 
 ---
 
-## Part 1 — Set up salary structures
+## 1. Set salary structures
 
-1. Go to **`Dashboard → Teachers`** → open a teacher → **Salary** tab (or **`Dashboard → Teachers → Salary`**).
-2. Enter the **salary structure**:
+`Dashboard → Teachers` → open a teacher → **Salary** tab. Enter:
 
-| Field | What to enter |
+| Field | Value |
 | --- | --- |
-| **Basic / Gross** | the headline monthly salary |
-| **Allowances** | house rent, transport, etc. |
-| **Deductions** | provident fund, tax, etc. |
-| **Pay mode** | how this person is normally paid |
+| Basic / Gross | headline monthly salary |
+| Allowances | house rent, transport… |
+| Deductions | provident fund, tax… |
+| Pay mode | how they are paid |
 
-3. Save. Repeat for each staff member, or bulk-apply a structure by designation.
-
-> [!TIP]
-> Set the structure once, then only the month's variables (unpaid leave, overtime, bonus, loan installment) change at run time.
+Save, then repeat (or bulk-apply by designation).
 
 ---
 
-## Part 2 — Run the monthly payroll
+## 2. Run monthly payroll
 
-1. Go to **`Dashboard → Teachers → Salary`**.
-2. Choose the **month** and review the generated list.
-3. eEdu pulls each person's **attendance** (days present, unpaid leave/overtime from the device or manual register) and applies it to the salary.
-4. Adjust any individual line if needed (bonus, fine, advance recovery).
-5. Click **Pay** (single or **Bulk Pay**) to mark the month as paid.
-
-> **Screenshot placeholder:** *Monthly payroll list with net payable per teacher and a Bulk Pay button.*
+1. `Dashboard → Teachers → Salary` → choose the **month**.
+2. eEdu pulls each person's **attendance** (unpaid leave, overtime) from the register/device.
+3. Adjust any line (bonus, fine, advance recovery).
+4. Click **Pay** (single or **Bulk Pay**).
 
 > [!WARNING]
-> Payroll is a money action. Double-check the month and any manual adjustments before **Bulk Pay** — corrections after payment are recorded as adjustments, not silent edits.
+> Payroll is a money action. Double-check the month and adjustments before **Bulk Pay**.
 
 ---
 
-## Part 3 — Payslips & payment history
+## 3. Payslips & history
 
-- Each teacher can download their own **payslip** from **My Space → My Salary**.
-- As an admin, use **`Dashboard → Teachers → Salary → Payment History`** to look up any past payment and re-print its payslip.
-- Payslips show earnings, deductions, attendance-derived figures and the net amount.
-
----
-
-## Part 4 — Loans & advances
-
-1. Go to **`Dashboard → Teachers → Salary → Loan Management`**.
-2. Add a **loan/advance** for a staff member: amount, number of installments, and start month.
-3. eEdu automatically deducts the installment from each month's payroll until it is repaid.
-4. Staff can track the balance and repayment from **My Space → My Loans**.
+- Staff download their own payslip from **My Space → My Salary**.
+- Admins use **`Teachers → Salary → Payment History`** to look up and re-print any payment.
 
 ---
 
-## Part 5 — Leave quota
+## 4. Loans & advances
 
-Before running payroll, make sure leave is configured so unpaid leave is calculated correctly.
-
-1. Go to **`Dashboard → Teachers → Leave Quota`**.
-2. Set each staff member's yearly **entitlement** per leave type.
-3. Approved leave requests draw from this balance; anything beyond the paid quota is treated as unpaid.
-
-See the staff leave workflow in the [Teachers & Permissions guide](/docs/school-operations/add-teachers-and-permissions).
+`Dashboard → Teachers → Salary → Loan Management` → add a loan (amount, installments, start month). eEdu deducts the installment automatically until repaid; staff track it in **My Space → My Loans**.
 
 ---
+
+## 5. Leave quota
+
+`Dashboard → Teachers → Leave Quota` → set each person's yearly entitlement. Approved leave draws from this; anything beyond the paid quota is unpaid. See [Teachers & Permissions](/docs/school-operations/add-teachers-and-permissions).
 
 ## Troubleshooting
 
 | Problem | Fix |
 | --- | --- |
-| Salary wrong for one teacher | Check unpaid leave and any manual deduction line |
-| Payslip not visible to staff | The month isn't marked paid yet, or they have no **My Space** access |
-| Loan not deducting | Confirm the loan is active and the start month has arrived |
-| Attendance not reflected | Device/manual attendance for the month is incomplete |
+| Salary wrong | Check unpaid leave and manual deductions |
+| No payslip for staff | Month not marked paid, or no My Space access |
+| Loan not deducting | Loan inactive or start month not reached |
 
-Next guide: **[Build Your School Website](/docs/website-and-domain/build-your-website)**.
+Next: **[Build Your School Website](/docs/website-and-domain/build-your-website)**.

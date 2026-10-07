@@ -1,112 +1,76 @@
 ---
-title: Connecting Your Attendance Device to the eEdu Server
-description: Configure a ZKTeco, RFID or face device to send punches to eEdu — server address, port, push mode and device secret key.
+title: Connect an Attendance Device
+description: Point a ZKTeco, face or RFID device at eEdu so every punch arrives automatically.
 ---
 
-This guide is for the technician installing an attendance terminal (fingerprint, face or RFID card). When finished, every punch on the device appears in eEdu automatically — no computer needs to stay on.
+<Figure src="/images/docs/diagram-device.svg" alt="A biometric device sending punches to eEdu over HTTPS" caption="Punches travel over normal outbound HTTPS — no public IP or port-forwarding needed." />
 
-## What you need before you start
-
-- Log in to eEdu with an **owner or teacher** account.
-- The device is powered on and connected to your school network / the internet.
-- The device's clock shows the correct Bangladesh time (`Asia/Dhaka`).
+**Before you start:** an owner/teacher login, a powered device on the network, and the device clock set to **Asia/Dhaka**.
 
 ---
 
-## Step 1 — Register the device in eEdu
+## 1. Register the device in eEdu
 
-1. Go to **`Dashboard → Students → Attendance`**.
-2. Open the **Settings** tab, then find the **Devices** section.
-3. Click **Add Device** and fill in the form:
-
-> **Screenshot placeholder:** *The "Add Device" form showing Model, Device Type, Location and Target Group fields.*
+1. Go to **`Dashboard → Students → Attendance`** → **Settings** tab → **Devices**.
+2. Click **Add Device** and fill in:
 
 | Field | What to enter |
 | --- | --- |
-| **Model** | The device model, e.g. `ZK9500` |
-| **Device type** | One or more of **Fingerprint** / **Face** / **RFID card** |
-| **Location** | Where it sits, e.g. `Main gate`, `Staff entrance` |
-| **Target group** | **Students**, **Teachers**, or both — who this device tracks |
+| **Model** | e.g. `ZK9500` |
+| **Device type** | Fingerprint / Face / RFID card |
+| **Location** | e.g. `Main gate` |
+| **Target group** | Students, Teachers, or both |
 
-4. Click **Save**.
-
-A confirmation box appears with two important values — **copy both now**:
-
-- **Device Secret Key** — a 32-character key. This is the device's password. It is shown **only once**, so store it safely (password manager or your file).
-- **Device Serial** — normally empty at first; eEdu detects it automatically the first time the device sends a punch.
-
-> **Screenshot placeholder:** *The success dialog showing the Device Secret Key with a "Copy" button and the HMAC/secure-mode note.*
+3. Click **Save** and **copy the Device Secret Key now** — it is shown only once.
 
 > [!WARNING]
-> The Device Secret Key is like a password. Don't share it in group chats, and if you ever suspect it leaked, rotate it from the same Devices screen — the old key stops working immediately.
+> The Device Secret Key is the device's password. Keep it in a password manager; rotate it from the same screen if it ever leaks.
 
 ---
 
-## Step 2 — Configure the device to talk to eEdu
+## 2. Point the device at eEdu
 
-Open the **device's own settings** (usually a web browser page on the device's IP address, or the LCD menu). Set these exactly:
+Open the device's settings (browser page or LCD menu) and set:
 
-| Device setting | Value to use |
+| Device setting | Value |
 | --- | --- |
 | Communication mode | **TCP/IP** |
-| Attendance mode | **Push** (also called Command or Cloud mode) |
-| Server address / host | `api.eedu.bd` |
-| Port | `443` |
-| **Server URL / Push URL** | `https://api.eedu.bd/api/v1/devices/attendance/ingest` |
-| **Device Secret Key** | the 32-character key from Step 1 |
-| Device clock | **Asia/Dhaka (UTC +6)**, with automatic time sync (NTP) switched on, if available |
-| Offline buffer | **On** (records store locally when the network is down) |
+| Attendance mode | **Push** (Cloud) |
+| Server address | `api.eedu.bd` · Port `443` |
+| **Push URL** | `https://api.eedu.bd/api/v1/devices/attendance/ingest` |
+| **Device Secret Key** | the key from step 1 |
+| Clock | **Asia/Dhaka (UTC +6)**, NTP on |
+| Offline buffer | **On** |
 
-> [!NOTE]
-> eEdu uses **HTTPS (port 443)** for device connections, so your firewall/router only needs to allow outbound web traffic. You do **not** need a public IP, a port-forwarding rule, or a static IP for the device.
-
-> **Diagram placeholder:** *Simple network drawing — Device at the school gate → arrow labeled "HTTPS outbound" → eEdu server in the cloud → arrow back labelled "attendance records".*
-
-### ZKTeco/ADMS-specific settings
-
-If your device uses **ADMS** (the ZKTeco desktop tool):
-
-1. In ADMS, create the device entry with the same server details above.
-2. For devices managed **without** ADMS (standalone push mode), you can configure the push URL and secret key directly on the device and skip ADMS entirely.
-
-Either way, the device must end up sending punches to the **push URL** with its **secret key**. If your distributor provides a small connector program instead, ask them to send the same punch data (user ID + time) to the address above.
+**ZKTeco/ADMS:** in ADMS create the device with the same server details, or configure the push URL and key directly on the device and skip ADMS.
 
 ---
 
-## Step 3 — Test the connection
+## 3. Test the connection
 
-1. On the device, punch a **known user** (any enrolled fingerprint or card).
-2. In eEdu, go to **`Dashboard → Students → Attendance → Settings → Devices`**.
-3. Open the device's **Punch Logs**. You should see the punch with status **Processed** and the correct person's name.
+1. Punch a **known user** on the device.
+2. Open **`Dashboard → Students → Attendance → Settings → Devices`** → **Punch Logs**.
+3. You should see the punch as **Processed** with the right name. The device turns **Active** and its Serial is captured automatically.
 
-> **Screenshot placeholder:** *Device list showing a device with status "Active" and a healthy Pending (buffer) count of 0.*
-
-If the first punch worked, the device **Serial is captured automatically** and the device status changes to **Active**.
+<YouTube id="vL9vpCT_5-8" title="How to set up a ZKTeco time attendance device" caption="General ZKTeco setup reference. Your push URL and secret key always come from eEdu (above)." />
 
 ---
 
-## Step 4 — Set the device clock (very important)
+## 4. Set the clock (very important)
 
-If punches arrive at the wrong time or get marked as tomorrow/yesterday:
+Wrong times are the #1 cause of “wrong day” attendance.
 
-1. On the device, find **Clock / Date Time** settings.
-2. Set timezone to **Asia/Dhaka (GMT+6)**.
-3. Enable **Time Sync / NTP** if available.
-4. Re-test a punch.
-
-eEdu reads device times in Dhaka time. A wrong device clock is the most common cause of "wrong day" attendance.
+1. Device settings → **Clock / Date Time**.
+2. Timezone **Asia/Dhaka (GMT+6)** and turn on **NTP / time sync**.
+3. Punch again to confirm.
 
 ---
 
-## Done — what happens next
+## Done
 
-From now on punches flow automatically:
+Students are marked **Present** or **Late** by your class timing rules; teacher check-ins feed **overtime** for payroll. If the internet drops, the device buffers and re-sends.
 
-- Students are marked **Present** or **Late** based on your class timing rules (`Dashboard → Students → Attendance → Settings`).
-- Teachers are marked with their check-in/check-out, which also feeds **overtime hours** for payroll.
-- If the internet drops, the device **buffers** punches and sends them automatically when the connection returns.
-
-Next guide: **[Map machine user IDs to students & teachers](/docs/hardware-guide/user-id-mapping)** — this is what makes each punch match the right person.
+Next: **[Map user IDs to people](/docs/hardware-guide/user-id-mapping)**.
 
 > [!TIP]
-> Keep the device clock NTP-synced and the Device Secret Key in your password manager — those two habits prevent 90% of attendance support calls.
+> Two habits prevent most support calls: keep the clock NTP-synced, and keep the Device Secret Key in a password manager.

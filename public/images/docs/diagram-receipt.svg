@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" role="img" aria-label="A printed fee receipt QR code scanned by a phone to verify on eEdu">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/>
+    </marker>
+    <pattern id="qr" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#ffffff"/>
+      <rect width="4" height="4" fill="#0f172a"/>
+      <rect x="4" y="4" width="4" height="4" fill="#0f172a"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="280" fill="#ffffff"/>
+  <g font-family="system-ui,Segoe UI,Roboto,sans-serif">
+    <!-- Receipt -->
+    <rect x="50" y="60" width="200" height="160" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="150" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">FEE RECEIPT</text>
+    <line x1="72" y1="106" x2="228" y2="106" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="72" y="128" font-size="12" fill="#475569">RCT-2026-…</text>
+    <text x="72" y="148" font-size="12" fill="#475569">Class 6 · Paid</text>
+    <rect x="160" y="160" width="52" height="52" fill="url(#qr)" stroke="#0f172a"/>
+
+    <!-- Phone -->
+    <rect x="380" y="45" width="130" height="190" rx="18" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="392" y="58" width="106" height="164" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="425" y="96" width="40" height="40" fill="url(#qr)" stroke="#0f172a"/>
+    <rect x="425" y="150" width="40" height="30" rx="4" fill="none" stroke="#0b72b5" stroke-width="3"/>
+    <text x="445" y="238" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">Scan the QR</text>
+
+    <!-- Verified -->
+    <rect x="640" y="60" width="270" height="160" rx="12" fill="#41a62a" opacity="0.08" stroke="#41a62a" stroke-width="2"/>
+    <circle cx="700" cy="118" r="26" fill="#41a62a" opacity="0.18" stroke="#41a62a" stroke-width="2"/>
+    <path d="M688 118 l9 9 l16 -18" fill="none" stroke="#41a62a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="740" y="112" font-size="17" font-weight="700" fill="#0f172a">Verified</text>
+    <text x="740" y="134" font-size="12.5" fill="#475569">receipt, amount, student</text>
+    <text x="740" y="152" font-size="12.5" fill="#475569">and institute confirmed</text>
+
+    <!-- arrows -->
+    <line x1="255" y1="140" x2="375" y2="140" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ar)"/>
+    <line x1="515" y1="140" x2="635" y2="140" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ar)"/>
+
+    <text x="480" y="262" text-anchor="middle" font-size="13" fill="#64748b">A tampered or fake receipt shows “signature invalid — this receipt may be forged”.</text>
+  </g>
+</svg>

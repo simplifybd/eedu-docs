@@ -1,112 +1,66 @@
 ---
-title: Adding Teachers & Managing Permissions
-description: Create teacher records, grant dashboard access, send invites, and control what each person can see and do.
+title: Add Teachers & Set Permissions
+description: Add staff records, give them a login, and control what each person can see and do.
 ---
 
-This guide covers bringing your staff onto eEdu: adding their records, giving them a login, and deciding which parts of the dashboard each person may use.
+<Figure src="/images/docs/teachers.jpg" alt="A teacher in front of a class" caption="Bring your staff onto eEdu in three short steps." />
 
 ---
 
-## Part 1 — Add a teacher's record
+## 1. Add a teacher's record
 
-1. Go to **`Dashboard → Teachers`**.
-2. Click **Add Teacher** and fill in the form:
+`Dashboard → Teachers` → **Add Teacher**:
 
 | Field | What to enter |
 | --- | --- |
 | **Full name** | as it should appear on registers and payslips |
 | **Designation / Department** | e.g. Assistant Teacher · Science |
-| **Phone / Email** | email is required if you plan to grant dashboard access |
-| **Employee ID** | leave blank — eEdu generates it automatically |
-| **Joining date** | first working day (used on the profile) |
-| **Show on website** | tick to list this teacher on your public site's "Our Teachers" page |
-| **Grant dashboard access** | tick to give them a login (next part) |
+| **Phone / Email** | email needed for dashboard access |
+| **Employee ID** | leave blank — eEdu generates it |
+| **Joining date** | first working day |
+| **Show on website** | list them on your public “Our Teachers” page |
+| **Grant dashboard access** | give them a login (step 2) |
 
-3. Click **Save**. The teacher now appears in the list with their **Employee ID** (e.g. `000017`) — this is also the number used by biometric devices (see the [mapping guide](/docs/hardware-guide/user-id-mapping)).
-
-> **Screenshot placeholder:** *The Add Teacher form with the main fields filled in.*
-
-> [!TIP]
-> Adding all teachers once at the start of the year (even before they join) lets you set up salary, leave and device access in advance.
+Save. The **Employee ID** (e.g. `000017`) is also the number biometric devices use — see [User ID mapping](/docs/hardware-guide/user-id-mapping).
 
 ---
 
-## Part 2 — Give a teacher a login (dashboard access)
+## 2. Give them a login
 
-There are two ways, and eEdu picks the right one automatically:
+eEdu picks the right path automatically:
 
-- **If they already have an account** (they used eEdu before) → access is granted instantly; the teacher sees your school workspace the next time they log in.
-- **If they don't have an account** → eEdu emails them an **invitation link**. They click it, create their password, and are automatically placed in your school's workspace.
+- **Existing eEdu account** → access is granted instantly.
+- **New user** → eEdu emails an **invite link** to create a password.
 
-To grant access:
-
-1. Open the teacher's profile (**`Dashboard → Teachers`** → teacher row).
-2. Choose **Dashboard access / Invite**.
-3. Pick a **role / permission level** (see Part 3) and save.
-
-> **Screenshot placeholder:** *"Grant dashboard access" dialog with role dropdown and permission toggles.*
-
-The teacher accepts the invite link (valid for a limited time). If the link expires, just send a new invite from the same screen — no reason needed.
+To grant: open the teacher → **Invite / Dashboard access** → choose a role → save. If the link expires, just send a new one.
 
 ---
 
-## Part 3 — Control what each teacher can do (permissions)
+## 3. Set what they can do
 
-1. Go to **`Dashboard → Account → Members`** (owner account).
-2. You'll see every member and every pending invite.
-
-There are two levels of access:
+`Dashboard → Account → Team Members` (owner only). Each feature is set to:
 
 | Level | Meaning |
 | --- | --- |
-| **Write** | Can view **and** change that area (e.g. mark attendance, edit fees) |
-| **Read** | Can view only (e.g. see the register but not edit it) |
-| **Off** | Hidden (the menu item simply doesn't appear for them) |
+| **Write** | view **and** change |
+| **Read** | view only |
+| **Off** | hidden from their menu |
 
-Apply permissions:
-
-1. Add or edit a member.
-2. Tick or untick each feature — **Attendance**, **Fees**, **Results**, **Students**, **Reports**, etc.
-3. Optionally limit a teacher to **specific classrooms**.
-4. Save.
-
-> **Screenshot placeholder:** *The permission matrix screen with features grouped and each row showing Off / Read / Write toggle buttons.*
+Tick features (**Attendance, Fees, Results, Students, Reports**…), optionally limit a teacher to **specific classrooms**, and save.
 
 > [!TIP]
-> Start new teachers on **Read**, then widen to **Write** after a week. Most teachers need only: Attendance, Results/Exams, Homework, and their own Leave.
-
-**Owner vs. Member:** the person who registered the institute is its **Owner** — the only one who can manage team members, billing and publishing results. Everyone else is a **Member** with the permissions you granted. Owners can hand some of these duties to a trusted **Head Teacher** by giving that member appropriate permissions.
+> Start new teachers on **Read**. Most need only: Attendance, Results, Homework and their own Leave.
 
 ---
 
-## Part 4 — The "My Space" view (what teachers see)
+## 4. My Space (what teachers see)
 
-Once connected, each teacher logs in to their own **My Space** (shown as their personal section of the dashboard). Here they can, without an admin:
-
-- View their **profile**, salary structure and leave balance.
-- See their **attendance** (punch times, present/late counts) and a monthly calendar.
-- Request **leave** and see its approval status.
-- Download their **payslip** (when payroll is run).
-- See their **timetable**, classes and student lists.
-
-Members can **never** see another teacher's salary or record leave on someone else's behalf — those stay with the owner.
-
-> [!NOTE]
-> Changing a teacher's permissions applies immediately. If someone "just lost access", save their permission toggles again and ask them to refresh the page.
+Each teacher gets a personal **My Space**: profile, attendance and calendar, leave with status, payslips, and their timetable/classes. Members can never see another teacher's salary.
 
 ---
 
-## Part 5 — Removing access
+## 5. Remove access
 
-When a teacher leaves:
+Open the teacher → **Archive** (keeps records, drops login). History stays in reports. Re-archiving restores the HR record only — re-grant access separately if they return.
 
-1. Open the teacher's profile.
-2. Choose **Archive** (or **Remove access** to keep the record but drop the login).
-3. The email invites are revoked automatically.
-
-Archived teachers hide from the active list but their attendance & salary history stays in reports. (Archived records are permanently removed from the system after 30 days, so archive with that in mind.)
-
-> [!TIP]
-> Re-archiving an "ex" teacher only restores their HR record — dashboard access is **not** restored automatically. If you want them back online, re-grant access from their profile.
-
-Next guide: **[Class Routine & Timetable Setup](/docs/school-operations/class-routine-and-timetable)**.
+Next: **[Class Routine & Timetable](/docs/school-operations/class-routine-and-timetable)**.

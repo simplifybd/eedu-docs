@@ -1,93 +1,57 @@
 ---
-title: Daily Attendance — Mark, Review & Alert
-description: Take daily or period-wise attendance, review monthly calendars, export registers, and send absence alerts to guardians.
+title: Daily Attendance
+description: Mark daily or period-wise attendance, review calendars, export registers, and alert guardians about absences.
 ---
 
-eEdu records attendance three ways — manually by the class teacher, automatically from biometric devices, or a mix of both. This guide covers the manual and review side; physical device setup lives in [Connecting Your Attendance Device](/docs/hardware-guide/device-cloud-config).
+<Figure src="/images/docs/attendance.jpg" alt="A school classroom" caption="Take attendance by hand, by device, or a mix of both." />
+
+Device punch setup lives in [Device & Biometric Setup](/docs/hardware-guide/device-cloud-config). This page covers the daily register.
 
 ---
 
-## Part 1 — Choose how attendance works
+## 1. Set the rules once
 
-Set this up once before the term starts.
+`Dashboard → Students → Attendance` → **Settings**:
 
-1. Go to **`Dashboard → Students → Attendance`**.
-2. Open the **Settings** tab.
-3. Decide the rules:
-
-| Setting | What it controls |
+| Setting | Controls |
 | --- | --- |
-| **Marking mode** | One **daily** record per student, or **period-wise** (follows the class routine) |
-| **Late cut-off** | The time after which a student is marked **Late** instead of **Present** |
-| **Weekly holidays** | Days with no attendance (e.g. Friday) |
-| **Shifts** | Morning / Day / Evening timings, if your school runs more than one |
+| Marking mode | one **daily** record, or **period-wise** |
+| Late cut-off | time after which a student is **Late** |
+| Weekly holidays | days with no attendance |
+| Shifts | Morning / Day / Evening timings |
 
-4. If you use **shifts**, open **Attendance Shifts** and assign the correct shift to each classroom.
+Assign each classroom the right **shift** if you use them.
+
+---
+
+## 2. Mark attendance
+
+1. `Dashboard → Students → Attendance` → **Mark Attendance**.
+2. Pick classroom, date and (if period-wise) the period.
+3. Tap **Mark all present**, then change only the exceptions: **Present / Late / Absent / Leave**.
+4. Save.
 
 > [!TIP]
-> Period-wise mode is best for high schools and colleges; primary schools usually need only one daily record.
+> With devices installed, punches fill the register for you — you only correct exceptions (forgot to punch, approved leave).
 
 ---
 
-## Part 2 — Mark attendance by hand
+## 3. Review & export
 
-1. Go to **`Dashboard → Students → Attendance`** → **Mark Attendance** tab.
-2. Pick the **classroom**, the **date**, and (for period-wise) the **period/shift**.
-3. The class list appears. Mark each student:
+From the same screen:
 
-| Status | Meaning |
-| --- | --- |
-| **Present** | On time |
-| **Late** | Arrived after the late cut-off |
-| **Absent** | Did not attend |
-| **Leave** | Approved absence (see the leave guide) |
-
-4. Use **Mark all present**, then change only the exceptions — it is the fastest way to take a register.
-5. Add an optional note (e.g. `medical`) and click **Save**.
-
-> **Screenshot placeholder:** *The Mark Attendance screen with a classroom list and Present / Late / Absent buttons per student.*
+- **Monthly calendar** per student (colour-coded).
+- **Class summary** and **low-attendance report**.
+- Export the register to **CSV / PDF**.
 
 ---
 
-## Part 3 — Device punches and manual marks together
+## 4. Absence alerts
 
-If biometric/RFID devices are installed, punches arrive automatically and the register is filled for you:
-
-- A punch before the late cut-off → **Present**.
-- A punch after the cut-off → **Late**.
-- No punch → stays **Absent** for you to confirm.
-
-You only need to open this screen to **correct exceptions** (forgot to punch, device offline, approved leave). Manual marks are never blocked by a late-arriving punch — the latest decision wins when you save.
-
-> [!NOTE]
-> A wrong device clock is the most common cause of odd Present/Late results. Confirm the device shows **Asia/Dhaka** with NTP on — see [Setting the device clock](/docs/hardware-guide/device-cloud-config#step-4--set-the-device-clock-very-important).
-
----
-
-## Part 4 — Review, calendars and exports
-
-From the same **Attendance** screen you can:
-
-- See a **monthly calendar** per student (green/red day view).
-- See a **class summary** (who is chronically absent).
-- Run a **low-attendance report** for a date range.
-- **Export** the register to CSV or PDF for filing or board submission.
-
-> **Screenshot placeholder:** *Monthly attendance calendar with present, late and absent days colour-coded.*
-
----
-
-## Part 5 — Absence alerts to guardians
-
-When a student is absent, eEdu can tell the family automatically.
-
-1. Go to **`Dashboard → Students → Absence Alerts`**.
-2. Turn alerts on and choose the **channel** (SMS / WhatsApp / in-app notification).
-3. Set how many days of absence trigger an alert, and the message text.
-4. Send a one-off alert for a specific student from the same screen, or let it run on schedule.
+`Dashboard → Students → Absence Alerts` → choose the **channel** (SMS / WhatsApp / in-app), set how many absent days trigger an alert, and the message. Send one-off alerts or let it run on schedule.
 
 > [!WARNING]
-> Alerts are sent from your institute's own SMS/WhatsApp credit. Confirm your sender ID and balance before switching them on (see [Communication guide](/docs/school-operations/communication-and-notices)).
+> Alerts use your institute's SMS/WhatsApp credit — check the sender ID and balance first.
 
 ---
 
@@ -95,9 +59,8 @@ When a student is absent, eEdu can tell the family automatically.
 
 | Problem | Fix |
 | --- | --- |
-| Can't save a register | The date may be a weekly holiday, or the teacher lacks **Write** permission for Attendance |
-| Everyone shows Late | Late cut-off is too early, or the device clock is wrong |
-| Device punches missing | Device offline or time wrong — see [Offline & sync troubleshooting](/docs/hardware-guide/offline-and-sync-troubleshooting) |
-| Wrong class list | Student is not enrolled in that classroom for the active academic year |
+| Can't save | Weekly holiday, or no **Write** permission |
+| Everyone is Late | Cut-off too early, or device clock wrong |
+| Punch missing | See [Offline & sync](/docs/hardware-guide/offline-and-sync-troubleshooting) |
 
-Next guide: **[Homework & Assignments](/docs/school-operations/homework-and-assignments)**.
+Next: **[Homework & Assignments](/docs/school-operations/homework-and-assignments)**.
