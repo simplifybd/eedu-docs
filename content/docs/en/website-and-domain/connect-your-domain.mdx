@@ -3,7 +3,7 @@ title: Connect Your Own Domain
 description: Point your domain at eEdu with a CNAME and two TXT records — no static IP or server needed.
 ---
 
-<Figure src="/images/docs/diagram-domain.svg" alt="Domain verification flow: add domain, add DNS records, eEdu verifies, SSL issued" caption="Four steps from your domain to a live, secure site." />
+<Figure src="/images/docs/domain-connect.webp" alt="Domain verification flow: add domain, add DNS records, eEdu verifies, SSL issued" />
 
 Your site already runs at `yourschool.eedu.bd`. This guide puts it on **your own domain**, e.g. `www.dhakamodel.edu.bd`.
 
@@ -50,7 +50,7 @@ Open your registrar's **DNS / Manage DNS** page and add exactly what eEdu shows:
 
 Visit `https://www.yourdomain` (hard-refresh if you see the old page). Your eEdu subdomain keeps working too.
 
-<YouTube id="ZXCQwdVgDno" title="What are CNAME records?" caption="New to DNS records? This short video explains CNAME vs A records." />
+<YouTube id="ZXCQwdVgDno" title="What are CNAME records?" />
 
 > [!NOTE]
 > Don't delete the TXT records after launch — they renew your free SSL certificate automatically.
