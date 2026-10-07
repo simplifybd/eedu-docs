@@ -4,6 +4,10 @@
     "add-teachers-and-permissions",
     "class-routine-and-timetable",
     "fee-collection-and-receipts",
-    "exams-marks-and-results"
+    "exams-marks-and-results",
+    "daily-attendance",
+    "homework-and-assignments",
+    "communication-and-notices",
+    "payroll-and-salary"
   ]
 }
