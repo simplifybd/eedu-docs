@@ -3,7 +3,7 @@ title: "Attendance: Logs Won't Sync or Look Wrong"
 description: Fix punches that never arrive, arrive late, or land on the wrong day or person.
 ---
 
-<Figure src="/images/docs/biometric_devices.webp" alt="Device to eEdu network path" />
+<Figure src="/images/docs/biometric_devices.jpeg" alt="Device to eEdu network path" />
 
 "Punched but shows absent" — follow the sections in order.
 
@@ -39,7 +39,7 @@ description: Fix punches that never arrive, arrive late, or land on the wrong da
 
 ## 4. Punches show "Error"
 
-The device user ID doesn't match anyone: note the ID, compare with the student's admission no. / teacher's employee ID, then fix the mapping or re-enroll. Errors never create fake absences. See [User ID mapping](/docs/hardware-guide/user-id-mapping).
+The device user ID doesn't match anyone: note the ID, compare with the student's admission no. / teacher's employee ID, then fix the mapping or re-enroll. Errors never create fake absences. See [User ID mapping](/en/docs/hardware-guide/user-id-mapping).
 
 ---
 
@@ -50,7 +50,7 @@ Check push mode, server `api.eedu.bd` / port 443, the secret key, request signin
 > [!NOTE]
 > Requests rejected with a wrong key, a bad signature or a malformed time are **not stored**, so they never appear in Punch Logs. If the device shows nothing here, check the device's own push/error log.
 
-Full walkthrough: [Device offline & sync](/docs/hardware-guide/offline-and-sync-troubleshooting). After the network returns, wait a few minutes — the device buffers and re-sends.
+Full walkthrough: [Device offline & sync](/en/docs/hardware-guide/offline-and-sync-troubleshooting). After the network returns, wait a few minutes — the device buffers and re-sends.
 
 ---
 
@@ -70,4 +70,4 @@ Open that day's register and mark individuals (within the back-date limit, usual
 | Error status | User ID mapping |
 | Absent looks wrong | Enrollment / academic year / approved leave |
 
-Next: **[Payment & Receipt Issues](/docs/troubleshooting/payment-and-receipt-issues)**.
+Next: **[Payment & Receipt Issues](/en/docs/troubleshooting/payment-and-receipt-issues)**.
