@@ -11,7 +11,7 @@ description: Fix punches that never arrive, arrive late, or land on the wrong da
 
 ## 1. Did the punch reach eEdu?
 
-`Dashboard → Students → Attendance → Settings → Devices` → open the device's **Punch Logs** (filter today).
+`Dashboard → Students → Attendance → Settings` (Devices section) → open the device's **Punch Logs** (filter today).
 
 | You see | Meaning | Next |
 | --- | --- | --- |
@@ -45,7 +45,12 @@ The device user ID doesn't match anyone: note the ID, compare with the student's
 
 ## 5. Nothing arrived (device side)
 
-Check push mode, server `api.eedu.bd` / port 443, secret key, internet, and the clock (`Asia/Dhaka`). Full walkthrough: [Device offline & sync](/docs/hardware-guide/offline-and-sync-troubleshooting). After the network returns, wait a few minutes — the device buffers and re-sends.
+Check push mode, server `api.eedu.bd` / port 443, the secret key, request signing (timestamp in milliseconds and signature headers), internet, and the clock (institute time zone, `Asia/Dhaka`).
+
+> [!NOTE]
+> Requests rejected with a wrong key, a bad signature or a malformed time are **not stored**, so they never appear in Punch Logs. If the device shows nothing here, check the device's own push/error log.
+
+Full walkthrough: [Device offline & sync](/docs/hardware-guide/offline-and-sync-troubleshooting). After the network returns, wait a few minutes — the device buffers and re-sends.
 
 ---
 

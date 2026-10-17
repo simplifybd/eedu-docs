@@ -1,6 +1,6 @@
 ---
 title: Connect an Attendance Device
-description: Point a ZKTeco, face or RFID device at eEdu so every punch arrives automatically.
+description: Connect a fingerprint, face or RFID attendance device that supports eEdu's signed push so every punch arrives automatically.
 ---
 
 <Figure src="/images/docs/biometric_devices.webp" alt="A biometric device sending punches to eEdu over HTTPS" />
@@ -42,14 +42,26 @@ Open the device's settings (browser page or LCD menu) and set:
 | Clock | **Asia/Dhaka (UTC +6)**, NTP on |
 | Offline buffer | **On** |
 
-**ZKTeco/ADMS:** in ADMS create the device with the same server details, or configure the push URL and key directly on the device and skip ADMS.
+### Request signing (required)
+
+Every punch request must carry two additional headers that the device computes itself. Requests without a valid signature are rejected.
+
+| Header | Value |
+| --- | --- |
+| `x-device-timestamp` | Current time in Unix **milliseconds** (not seconds). Must be within ±5 minutes of the server time. |
+| `x-device-signature` | Lowercase hex **HMAC-SHA256** of `serial.timestamp.sha256(body)`, using the Device Secret Key as the key. |
+
+- `serial` is the device serial sent in `x-device-serial`; `body` is the exact JSON body sent, byte for byte.
+- A device that cannot compute this signature is **not supported**. Confirm this with your supplier before purchase. The full technical specification is available from eEdu on request.
+
+**ZKTeco / ADMS (iClock) devices:** the vendor's native push format is **not** supported directly, because it cannot sign requests. Such devices need a gateway. Contact eEdu support before installation.
 
 ---
 
 ## 3. Test the connection
 
 1. Punch a **known user** on the device.
-2. Open **`Dashboard → Students → Attendance → Settings → Devices`** → **Punch Logs**.
+2. Open **`Dashboard → Students → Attendance → Settings`** (Devices section) → **Punch Logs**.
 3. You should see the punch as **Processed** with the right name. The device turns **Active** and its Serial is captured automatically.
 
 <YouTube id="vL9vpCT_5-8" title="How to set up a ZKTeco time attendance device" />

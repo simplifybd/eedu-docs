@@ -28,9 +28,10 @@ On the device, open **COMM / Network** and check it has an IP address.
 | Server / Push URL | `https://api.eedu.bd/api/v1/devices/attendance/ingest` |
 | Port | `443` |
 | Secret key | matches eEdu |
+| Request signing | Device sends `x-device-timestamp` (ms) and a valid `x-device-signature` (see the device guide) |
 
 > [!NOTE]
-> Re-check the push URL and secret key in `Dashboard → Students → Attendance → Settings → Devices`. A single wrong character stops all punches.
+> Re-check the push URL and secret key in `Dashboard → Students → Attendance → Settings` (Devices section). A single wrong character stops all punches.
 
 <YouTube id="JBWeKcBDZNI" title="ZKTeco device full configuration" />
 
@@ -47,7 +48,7 @@ Wrong time = wrong day/late status.
 
 ## 4. Is the eEdu side healthy?
 
-1. Open **`Dashboard → Students → Attendance → Settings → Devices`**.
+1. Open **`Dashboard → Students → Attendance → Settings`** (Devices section).
 2. Check **status** (Active?) and the **Pending buffer** count.
 3. Open **Punch Logs**:
    - **New/queued** → eEdu is catching up; wait a moment.

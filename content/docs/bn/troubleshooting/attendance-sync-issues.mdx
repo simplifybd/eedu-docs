@@ -11,7 +11,7 @@ description: "পাঞ্চ না আসা, দেরিতে আসা ব
 
 ## ১. পাঞ্চ eEdu-তে পৌঁছেছে?
 
-`ড্যাশবোর্ড → শিক্ষার্থী → উপস্থিতি → Settings → Devices` → ডিভাইসের **Punch Logs** (আজকের) খুলুন।
+`ড্যাশবোর্ড → শিক্ষার্থী → উপস্থিতি → Settings` (Devices অংশ) → ডিভাইসের **Punch Logs** (আজকের) খুলুন।
 
 | যা দেখছেন | অর্থ | পরবর্তী |
 | --- | --- | --- |
@@ -45,7 +45,10 @@ description: "পাঞ্চ না আসা, দেরিতে আসা ব
 
 ## ৫. কিছুই আসেনি (ডিভাইস দিক)
 
-push mode, server `api.eedu.bd` / port 443, secret key, ইন্টারনেট ও ঘড়ি (`Asia/Dhaka`) দেখুন। সম্পূর্ণ নির্দেশনা: [ডিভাইস অফলাইন ও সিঙ্ক](/bn/docs/hardware-guide/offline-and-sync-troubleshooting)। নেটওয়ার্ক ফিরলে কিছুক্ষণ অপেক্ষা করুন — ডিভাইস বাফার করে আবার পাঠায়।
+push mode, server `api.eedu.bd` / port 443, secret key, request signing (মিলিসেকেন্ডে timestamp ও signature হেডার), ইন্টারনেট ও ঘড়ি (প্রতিষ্ঠানের timezone, `Asia/Dhaka`) দেখুন।
+
+> [!NOTE]
+> ভুল key, ভুল signature বা ভুল সময়ের রিকোয়েস্ট **সংরক্ষিত হয় না**, তাই Punch Logs-এ দেখা যায় না। এখানে কিছু না দেখলে ডিভাইসের নিজস্ব push/error লগ দেখুন। সম্পূর্ণ নির্দেশনা: [ডিভাইস অফলাইন ও সিঙ্ক](/bn/docs/hardware-guide/offline-and-sync-troubleshooting)। নেটওয়ার্ক ফিরলে কিছুক্ষণ অপেক্ষা করুন — ডিভাইস বাফার করে আবার পাঠায়।
 
 ---
 

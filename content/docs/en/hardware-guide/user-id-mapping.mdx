@@ -1,9 +1,9 @@
 ---
 title: Map Device User IDs to Students & Teachers
-description: Make each fingerprint or card match the right person by keeping device user IDs aligned with eEdu.
+description: Make each fingerprint or card match the right person by enrolling the exact eEdu ID on the device.
 ---
 
-A device only sends a **user ID** (the number stored on the machine). eEdu matches that number to a student or teacher. Keep the two in sync and attendance is automatic.
+A device only sends a **user ID** (the number stored on the machine). eEdu matches that number to a student or teacher. Keep the two identical and attendance is automatic.
 
 <Figure src="/images/docs/device-mapping.webp" alt="Device user ID matched to an eEdu admission or employee number" />
 
@@ -11,43 +11,39 @@ A device only sends a **user ID** (the number stored on the machine). eEdu match
 
 ## The rule
 
-Use the **same number** on both sides:
+Enroll the **exact same number** on the device as the eEdu ID:
 
 | On the device | In eEdu |
 | --- | --- |
-| Enrolled user ID, e.g. `017` | **Admission no.** (student) or **Employee ID** (teacher) |
+| Enrolled user ID, e.g. `000123` | **Admission no.** (student) or **Employee ID** (teacher) |
+
+- IDs are **numbers only** and are **zero-padded to at least 6 digits** (for example `000123`, `260001`).
+- Enter the ID **with its leading zeros**. Do not add prefixes such as `S` or `T`.
+- Some devices drop leading zeros when a number is stored as an integer. Check that the device shows `000123`, not `123`. If it does not, the device cannot be used for this ID.
 
 ---
 
-## Option A — Renumber the device (recommended)
+## Setting the device user ID
 
-Best for a new install or small corrections.
+1. In eEdu, open **Students** (or **Teachers**) and note the **Admission no.** (or **Employee ID**).
+2. On the device, enroll the person with that exact number as the user ID.
+3. Punch once and confirm the correct name in the punch log (see below).
 
-1. In eEdu, note the student's **Admission no.** (or teacher's **Employee ID**).
-2. On the device, re-enroll that person with the matching user ID.
-3. Punch once to confirm it shows the correct name in **Punch Logs**.
-
----
-
-## Option B — Map inside eEdu
-
-Best when re-enrolling is not practical.
-
-1. Go to **`Dashboard → Students → Attendance → Settings → Devices`**.
-2. Open the device's **user mapping**.
-3. Enter the device user ID and choose the matching student/teacher.
-4. Save.
+For many enrolments, use the device's bulk user import if it has one, rather than enrolling each person by hand.
 
 ---
 
 ## Check it worked
 
-Open **`Dashboard → Students → Attendance → Settings → Devices` → Punch Logs**. Each punch shows **Device user ID**, the matched **Person**, time, direction and status.
+Open **Dashboard → Students → Attendance → Settings** (Devices অংশ) → **Punch Logs** for the device. Each punch shows the device user ID, the matched person, time, direction and status.
 
-- **Processed** → matched to a person.
-- **Error / Unmapped** → the ID has no match; map it or re-enroll it.
+| Status | Meaning | Action |
+| --- | --- | --- |
+| **Processed** | Matched and recorded. | None. |
+| **Error: Student / Teacher not recognized on this device** | No eEdu person has this ID. | Check the ID on the device against eEdu. |
+| **Error: Student not enrolled in any active class** | The person exists but is not in an active class. | Add the student to a class. |
 
 > [!TIP]
-> If two people share a device ID, the later mapping wins. Check the punch log after bulk changes.
+> If a punch shows "not recognized", the most common cause is a missing or dropped leading zero. Compare the device ID with the eEdu ID character by character.
 
 <YouTube id="TuhthMHn3oA" title="ZKTeco fingerprint enrollment" />
