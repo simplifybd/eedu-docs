@@ -8,10 +8,6 @@ export const gitConfig = {
   branch: "main",
 };
 
-/**
- * Raw markdown source URL for a page (used by the "view as markdown" action).
- * Static export has no server route, so it points at GitHub instead.
- */
 export function getPageMarkdownUrl(page: { path: string }) {
   return {
     url: `https://raw.githubusercontent.com/${gitConfig.user}/${gitConfig.repo}/${gitConfig.branch}/content/docs/${page.path}`,
