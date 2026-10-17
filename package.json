@@ -2,6 +2,7 @@
   "name": "eedu-docs",
   "version": "0.0.41",
   "private": true,
+  "packageManager": "pnpm@12.11.2",
   "scripts": {
     "prebuild": "node scripts/prebuild.mjs",
     "build": "next build",
