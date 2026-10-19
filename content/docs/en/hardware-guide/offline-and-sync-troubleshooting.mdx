@@ -3,7 +3,7 @@ title: Fixing Offline & Sync Problems
 description: Diagnose a device that is offline, not sending punches, or showing the wrong time.
 ---
 
-<Figure src="/images/docs/offline-sync-troubleshooting.webp" alt="A network rack with a router and switch" />
+<Figure src="/images/docs/offline-sync-troubleshooting.webp" alt="A network rack with a router and switch" priority />
 
 If punches don't appear in eEdu, work down this list.
 
@@ -49,10 +49,8 @@ Wrong time = wrong day/late status.
 ## 4. Is the eEdu side healthy?
 
 1. Open **`Dashboard → Students → Attendance → Settings`** (Devices section).
-2. Check **status** (Active?) and the **Pending buffer** count.
-3. Open **Punch Logs**:
-   - **New/queued** → eEdu is catching up; wait a moment.
-   - **Error** → usually a key or mapping issue.
+2. Check **status** (Active?) and the **Pending buffer** count — a non-zero buffer means eEdu is still catching up, so wait a moment.
+3. Open **Punch Logs**: for what each status means (listed / Error / missing), see [Attendance: Logs Won't Sync](/en/docs/troubleshooting/attendance-sync-issues) §1.
 
 ---
 
@@ -62,8 +60,9 @@ Wrong time = wrong day/late status.
 | --- | --- |
 | Nothing at all | Wrong push URL/key, or device offline |
 | Some punches missing | Network drop; device buffers and re-sends when back |
-| Wrong person | User ID mismatch — see [User ID mapping](/en/docs/hardware-guide/user-id-mapping) |
 | Wrong day/time | Device clock/timezone |
+
+**Wrong person** or an **Error** status is a mapping question — handled in [Attendance: Logs Won't Sync](/en/docs/troubleshooting/attendance-sync-issues) §4.
 
 If it still fails, contact eEdu support with the device **model, serial and status**.
 

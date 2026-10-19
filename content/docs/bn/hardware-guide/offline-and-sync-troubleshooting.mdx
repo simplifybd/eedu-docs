@@ -3,7 +3,7 @@ title: "অফলাইন ও সিঙ্ক সমস্যা সমাধ�
 description: "ডিভাইস অফলাইন, পাঞ্চ পাঠাচ্ছে না বা ভুল সময় দেখালে কী করবেন।"
 ---
 
-<Figure src="/images/docs/offline-sync-troubleshooting.webp" alt="রাউটার ও সুইচসহ নেটওয়ার্ক র্যাক" />
+<Figure src="/images/docs/offline-sync-troubleshooting.webp" alt="রাউটার ও সুইচসহ নেটওয়ার্ক র্যাক" priority />
 
 eEdu-তে পাঞ্চ না এলে নিচের ক্রম ধরে এগোন।
 
@@ -48,10 +48,8 @@ eEdu-তে পাঞ্চ না এলে নিচের ক্রম ধর
 ## ৪. eEdu-র দিক ঠিক আছে?
 
 1. **`ড্যাশবোর্ড → শিক্ষার্থী → উপস্থিতি → Settings`** (Devices অংশ) খুলুন।
-2. **status** (Active?) ও **Pending buffer** সংখ্যা দেখুন।
-3. **Punch Logs** খুলুন:
-   - **New/queued** → eEdu প্রসেস করছে; একটু অপেক্ষা করুন।
-   - **Error** → সাধারণত key বা ম্যাপিং সমস্যা।
+2. **status** (Active?) ও **Pending buffer** সংখ্যা দেখুন — buffer শূন্য না হলে eEdu এখনো এসে থাকা পাঞ্চ প্রসেস করছে, একটু অপেক্ষা করুন।
+3. **Punch Logs** খুলুন: কোন স্ট্যাটাসের মানে কী (listed / Error / নেই) জানতে দেখুন [উপস্থিতির লগ সিঙ্ক](/bn/docs/troubleshooting/attendance-sync-issues) §১।
 
 > **স্ক্রিনশট প্লেসহোল্ডার:** *ডিভাইস তালিকা — status, model, location ও Pending buffer কলাম।*
 
@@ -63,8 +61,9 @@ eEdu-তে পাঞ্চ না এলে নিচের ক্রম ধর
 | --- | --- |
 | একেবারেই কিছু নেই | push URL/key ভুল, বা ডিভাইস অফলাইন |
 | কিছু পাঞ্চ নেই | নেটওয়ার্ক ড্রপ; ডিভাইস বাফার করে পরে পাঠায় |
-| ভুল ব্যক্তি | ইউজার আইডি ভুল — দেখুন [ইউজার আইডি ম্যাপিং](/bn/docs/hardware-guide/user-id-mapping) |
 | ভুল দিন/সময় | ডিভাইসের ঘড়ি/টাইমজোন |
+
+**ভুল ব্যক্তি** বা **Error** স্ট্যাটাস হলে সেটি ম্যাপিং সমস্যা — দেখুন [উপস্থিতির লগ সিঙ্ক](/bn/docs/troubleshooting/attendance-sync-issues) §৪।
 
 সমস্যা থাকলে eEdu সাপোর্টে ডিভাইসের **model, serial ও status** জানান।
 
