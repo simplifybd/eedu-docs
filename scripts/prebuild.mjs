@@ -160,6 +160,7 @@ const redirects = `/  /en/docs  302
 /docs  /en/docs  302
 /en  /en/docs  302
 /bn  /bn/docs  302
+/*  /404.html  404
 `;
 
 // ---------- helpers ----------

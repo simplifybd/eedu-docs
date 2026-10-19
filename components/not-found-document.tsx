@@ -3,7 +3,6 @@ import Link from 'next/link';
 export function NotFoundDocument() {
   return (
     <html lang="en" suppressHydrationWarning>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <body className="flex min-h-screen flex-col items-center justify-center gap-6 bg-fd-background px-6 text-center text-fd-foreground">
         <p className="text-7xl font-bold tracking-tight text-fd-muted-foreground">
           404
