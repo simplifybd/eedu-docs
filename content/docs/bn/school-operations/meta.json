@@ -2,12 +2,18 @@
   "title": "প্রতিদিনের স্কুল কার্যক্রম",
   "pages": [
     "add-teachers-and-permissions",
+    "add-and-manage-students",
     "class-routine-and-timetable",
     "fee-collection-and-receipts",
+    "billing-and-plans",
     "exams-marks-and-results",
     "daily-attendance",
     "homework-and-assignments",
     "communication-and-notices",
-    "payroll-and-salary"
+    "transport-and-hostel",
+    "payroll-and-salary",
+    "my-space-leave-and-performance",
+    "reports-and-analytics",
+    "library-and-book-issues"
   ]
 }

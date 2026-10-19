@@ -3,7 +3,7 @@ title: "উপস্থিতি: লগ সিঙ্ক হয় না বা
 description: "পাঞ্চ না আসা, দেরিতে আসা বা ভুল দিন/ব্যক্তিতে পড়ার সমাধান।"
 ---
 
-<Figure src="/images/docs/biometric_devices.jpeg" alt="ডিভাইস থেকে eEdu-র পথ" />
+<Figure src="/images/docs/biometric-devices.webp" alt="ডিভাইস থেকে eEdu-র পথ" />
 
 "পাঞ্চ করেছি কিন্তু অনুপস্থিত দেখাচ্ছে" — ক্রম ধরে এগোন।
 
@@ -45,7 +45,7 @@ description: "পাঞ্চ না আসা, দেরিতে আসা ব
 
 ## ৫. কিছুই আসেনি (ডিভাইস দিক)
 
-push mode, server `api.eedu.bd` / port 443, secret key, request signing (মিলিসেকেন্ডে timestamp ও signature হেডার), ইন্টারনেট ও ঘড়ি (প্রতিষ্ঠানের timezone, `Asia/Dhaka`) দেখুন।
+push mode, server `api.eedu.bd` / port 443, secret key, ডিভাইস [eEdu-র signed push সাপোর্ট করে কি না](/bn/docs/hardware-guide/device-cloud-config), ইন্টারনেট ও ঘড়ি (প্রতিষ্ঠানের timezone, `Asia/Dhaka`) দেখুন।
 
 > [!NOTE]
 > ভুল key, ভুল signature বা ভুল সময়ের রিকোয়েস্ট **সংরক্ষিত হয় না**, তাই Punch Logs-এ দেখা যায় না। এখানে কিছু না দেখলে ডিভাইসের নিজস্ব push/error লগ দেখুন। সম্পূর্ণ নির্দেশনা: [ডিভাইস অফলাইন ও সিঙ্ক](/bn/docs/hardware-guide/offline-and-sync-troubleshooting)। নেটওয়ার্ক ফিরলে কিছুক্ষণ অপেক্ষা করুন — ডিভাইস বাফার করে আবার পাঠায়।
@@ -68,4 +68,4 @@ push mode, server `api.eedu.bd` / port 443, secret key, request signing (মি�
 | Error status | ইউজার আইডি ম্যাপিং |
 | অনুপস্থিতি ভুল | ভর্তি / শিক্ষাবর্ষ / অনুমোদিত ছুটি |
 
-পরের গাইড: **[পেমেন্ট ও রসিদ সমস্যা](/bn/docs/troubleshooting/payment-and-receipt-issues)**।
+পরের গাইড: **[পেমেন্ট ও রসিদ যাচাই](/bn/docs/troubleshooting/payment-and-receipt-issues)**।

@@ -1,0 +1,58 @@
+---
+title: Library & Book Issues
+description: Manage the book catalog, issue and return books, track fines, and handle reservations.
+---
+
+<Figure
+  src="/images/docs/library-book-issues.webp"
+  alt="Students reading in a library"
+/>
+
+---
+
+## 1. Add books to the catalog
+
+`Dashboard → Students → Library → Books` → **Add Book** → title, author, ISBN, category, copies, fine/day, borrow days → Save. Use **Import spreadsheet** for bulk entry.
+
+Each book tracks available vs. total copies automatically.
+
+---
+
+## 2. Issue a book
+
+1. `Dashboard → Students → Library → Books`.
+2. Open a book's **actions → Issue** (only enabled when a copy is in stock).
+3. Select the **student** and set the **due date** (defaults to borrow days from today).
+4. Save — the copy is marked issued and the student's statement shows the borrow.
+
+---
+
+## 3. Return or mark lost
+
+`Dashboard → Students → Library → Issues`:
+
+- **Return** — marks the issue returned, calculates any late fine, frees the copy.
+- **Lost** — marks the issue lost and charges a lost-book fine.
+
+---
+
+## 4. Reservations
+
+When a book is out of stock, open its **actions → Reserve** and pick a student. The student joins the queue in order.
+
+- On return of a copy, the earliest pending reservation becomes **Ready** (3-day pickup window).
+- **Cancel** removes the reservation; the book stays in the catalog.
+
+`Dashboard → Students → Library → Reservations` shows the queue and status.
+
+---
+
+## Troubleshooting
+
+| Problem           | Fix                                           |
+| ----------------- | --------------------------------------------- |
+| Cannot issue      | No available copy — reserve instead           |
+| Fine wrong        | Adjust borrow days / fine per day on the book |
+| Reservation stuck | Cancel and re-create                          |
+
+Next: **[Student & Parent Portal](/en/docs/student-and-parent-portal)**.

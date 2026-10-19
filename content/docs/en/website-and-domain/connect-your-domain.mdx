@@ -3,7 +3,7 @@ title: Connect Your Own Domain
 description: Point your domain at eEdu with a CNAME and two TXT records — no static IP or server needed.
 ---
 
-<Figure src="/images/docs/domain-connect.jpeg" alt="Domain verification flow: add domain, add DNS records, eEdu verifies, SSL issued" />
+<Figure src="/images/docs/connect-your-domain.webp" alt="Domain verification flow: add domain, add DNS records, eEdu verifies, SSL issued" />
 
 Your site already runs at `yourschool.eedu.bd`. This guide puts it on **your own domain**, e.g. `www.dhakamodel.edu.bd`.
 
@@ -16,7 +16,7 @@ Your site already runs at `yourschool.eedu.bd`. This guide puts it on **your own
 
 ## 1. Add the domain in eEdu
 
-`Dashboard → Settings → Domain` → **Add Domain** → enter the full domain → Save.
+`Dashboard → Website → Domain` → **Add Domain** → enter the full domain → Save.
 
 eEdu shows a **DNS setup table**. Keep it open — you'll copy the values.
 
@@ -41,7 +41,7 @@ Open your registrar's **DNS / Manage DNS** page and add exactly what eEdu shows:
 ## 3. Wait, then verify
 
 1. Wait **15–60 minutes** for DNS to spread.
-2. Back in **`Dashboard → Settings → Domain`**, click **Verify**.
+2. Back in **`Dashboard → Website → Domain`**, click **Verify**.
 3. Status becomes **Active / Verified**. eEdu also re-checks automatically every hour.
 
 ---
@@ -55,4 +55,4 @@ Visit `https://www.yourdomain` (hard-refresh if you see the old page). Your eEdu
 > [!NOTE]
 > Don't delete the TXT records after launch — they renew your free SSL certificate automatically.
 
-Next: **[Free SSL & Verification](/en/docs/website-and-domain/ssl-and-verification)**.
+Next: **[Free SSL & Connection Verification](/en/docs/website-and-domain/ssl-and-verification)**.

@@ -3,7 +3,7 @@ title: "Attendance: Logs Won't Sync or Look Wrong"
 description: Fix punches that never arrive, arrive late, or land on the wrong day or person.
 ---
 
-<Figure src="/images/docs/biometric_devices.jpeg" alt="Device to eEdu network path" />
+<Figure src="/images/docs/biometric-devices.webp" alt="Device to eEdu network path" />
 
 "Punched but shows absent" — follow the sections in order.
 
@@ -45,7 +45,7 @@ The device user ID doesn't match anyone: note the ID, compare with the student's
 
 ## 5. Nothing arrived (device side)
 
-Check push mode, server `api.eedu.bd` / port 443, the secret key, request signing (timestamp in milliseconds and signature headers), internet, and the clock (institute time zone, `Asia/Dhaka`).
+Check push mode, server `api.eedu.bd` / port 443, the secret key, whether the device supports [eEdu's signed push](/en/docs/hardware-guide/device-cloud-config), internet, and the clock (institute time zone, `Asia/Dhaka`).
 
 > [!NOTE]
 > Requests rejected with a wrong key, a bad signature or a malformed time are **not stored**, so they never appear in Punch Logs. If the device shows nothing here, check the device's own push/error log.
@@ -70,4 +70,4 @@ Open that day's register and mark individuals (within the back-date limit, usual
 | Error status | User ID mapping |
 | Absent looks wrong | Enrollment / academic year / approved leave |
 
-Next: **[Payment & Receipt Issues](/en/docs/troubleshooting/payment-and-receipt-issues)**.
+Next: **[Payments & Receipt Verification](/en/docs/troubleshooting/payment-and-receipt-issues)**.

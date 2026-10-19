@@ -58,7 +58,7 @@ components/
   mdx.tsx                     MDX component mapping
 public/
   images/logo.png             Sidebar / OG brand logo
-  images/icon.png             Square app icon
+  images/icon.webp            Square app icon
 ```
 
 ## Internationalization (English & Bangla)
@@ -133,7 +133,7 @@ content/docs/
 Global MDX components are available in every page (no import needed):
 
 ```mdx
-<Figure src="/images/docs/example.jpg" alt="What the image shows" caption="Shown under the image." />
+<Figure src="/images/docs/example.webp" alt="What the image shows" caption="Shown under the image." />
 <YouTube id="VIDEO_ID" title="Video title" caption="Optional caption." />
 ```
 

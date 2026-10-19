@@ -3,7 +3,7 @@ title: Student Fees & QR Receipts
 description: Set up fees, collect at the counter or online, and print receipts parents can verify by QR.
 ---
 
-<Figure src="/images/docs/fees.jpeg" alt="A piggy bank" />
+<Figure src="/images/docs/fee-collection-receipts.webp" alt="A piggy bank" />
 
 ---
 
@@ -11,7 +11,28 @@ description: Set up fees, collect at the counter or online, and print receipts p
 
 **One-off:** `Dashboard → Students → Fees` → **Add Fee** → student, category, amount, discount, month/year, due date → Save.
 
-**Monthly (recommended):** `Dashboard → Students → Fees → Templates` → **New Template** → add items (Tuition ৳1500, …), set **generate on day** and **due after day**, pick the classroom. eEdu then creates each month's bills automatically.
+**Monthly (recommended):** `Dashboard → Students → Fees → Templates` → **New Template** → add items (Tuition ৳1500, …), set **billing day** and **due day offset**, pick the classroom (or all classrooms). eEdu then creates each month's bills automatically.
+
+### Why use fee templates?
+
+- **Consistency** — every enrolled student in the classroom gets the same fee heads each month; no manual re-entry.
+- **Automation** — on the billing day the system generates invoices (skipping any already created for that month).
+- **Control** — activate/deactivate a template, change items, or run **Generate Now** for the current month.
+- **Traceability** — generated fees link back to the template.
+
+### One-off fees & corrections
+
+`Dashboard → Students → Fees` → **New Fee** → pick classroom, month and year, then add fee heads with base amount, discount and fine. The form prefills from the student's existing statement, so saving **updates** it instead of duplicating. Use this for one-off charges (admission, library fine) or to correct a bill a template produced.
+
+### Installment plans
+
+For a large bill, `Dashboard → Students → Fees → Installment Plans` → **New Plan** → student, total amount, number of installments (2–60), start month/year, due day. The system splits the total into scheduled monthly installments; the last installment absorbs rounding. Progress (paid/total) is tracked and unpaid installments are removed on cancellation.
+
+**Why use installment plans?**
+
+- Lets families spread a big fee (admission, development) over months.
+- Keeps the ledger accurate — each installment is a real fee with its own due date and status.
+- Shows progress so staff and parents see what is settled.
 
 Built-in fee heads include Tuition, Admission, Exam, Transport, Hostel, Library, Development and more.
 
@@ -32,7 +53,7 @@ The bill turns **Paid/Partial**, totals are locked against double collection, an
 
 From the confirmation, click **Print / Download receipt**. The PDF shows institute details, receipt number, each fee line, the total, and a **QR code**.
 
-<Figure src="/images/docs/diagram-receipt.jpeg" alt="A receipt QR scanned by a phone to verify on eEdu" />
+<Figure src="/images/docs/receipt-qr-code.webp" alt="A receipt QR scanned by a phone to verify on eEdu" />
 
 ---
 
@@ -53,10 +74,9 @@ Parents then see **Pay Online** on the fee statement. Money goes to **your own a
 
 ---
 
-## Discounts & installments
+## Discounts & scholarships
 
-- **Scholarship:** open the fee → set **Waived amount** (use a free ৳0 payment for a clean audit trail).
-- **Spread a big bill:** `Dashboard → Students → Fees → Installment Plans` → split into 2–60 monthly installments.
+Open the fee → set **Waived amount** for a scholarship (record a free ৳0 payment for a clean audit trail). To spread a large bill across months, use [Installment plans](#installment-plans) above.
 
 ## Troubleshooting
 
@@ -67,4 +87,4 @@ Parents then see **Pay Online** on the fee statement. Money goes to **your own a
 | Online payment stuck | eEdu settles on return — see [payment issues](/en/docs/troubleshooting/payment-and-receipt-issues) |
 | Receipt shows invalid | Issue a new receipt and void the old one |
 
-Next: **[Exams, Marks & Results](/en/docs/school-operations/exams-marks-and-results)**.
+Next: **[Plans, Billing & Payments](/en/docs/school-operations/billing-and-plans)**.

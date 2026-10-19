@@ -1,0 +1,81 @@
+---
+title: Transport & Hostel
+description: Set up bus routes, vehicles and drivers, hostel rooms, and subscribe students to either with its monthly fee.
+---
+
+<Figure src="/images/docs/transport-hostel.webp" alt="A school campus" />
+
+Both facilities work the same way: define the **facility** once, then give each student a **subscription** that carries the monthly fee.
+
+---
+
+## 1. Add a transport route
+
+`Dashboard → Transport → Routes` → **Add route**:
+
+| Field            | Example                        |
+| ---------------- | ------------------------------ |
+| Route name       | Mirpur–School                  |
+| Start location   | Mirpur-10                      |
+| End location     | School gate                    |
+| Monthly fee      | ৳1,500                         |
+| Stops (optional) | Add each pickup point in order |
+
+The **monthly fee on the route automatically fills every new subscription** — staff never retype it.
+
+---
+
+## 2. Vehicles and drivers
+
+Still under `Dashboard → Transport`:
+
+- **Vehicles** → **Add vehicle** → registration no., model, capacity.
+- **Drivers** → **Add driver** → name, phone, licence no.
+
+A driver can then be attached to a route or vehicle, so the register shows who runs what.
+
+---
+
+## 3. Subscribe a student to a route
+
+`Dashboard → Transport → Subscriptions` → **Add subscription** → student, route, monthly fee (already filled from the route) → save.
+
+The subscription is what bills the family. Add it as a **Transport** fee head so it shows on the statement like any other charge.
+
+To end it, open the subscription and remove it — future bills stop, past ones stay.
+
+---
+
+## 4. Add a hostel and rooms
+
+`Dashboard → Hostel → Hostels`:
+
+1. **Add hostel** → name, type, address, **monthly fee** → save.
+2. With the hostel in place, click **Add room** (top-right, or on the hostel itself) → room no., floor, capacity / bed count.
+
+Each room shows how many beds are left, so you can see availability before subscribing anyone.
+
+---
+
+## 5. Subscribe a student to a hostel
+
+`Dashboard → Hostel → Subscriptions` → **Add subscription** → student, hostel, room, monthly fee → save. Bill it as a **Hostel** fee head.
+
+Transport and hostel fees can both be generated monthly from a [fee template](/en/docs/school-operations/fee-collection-and-receipts) instead of by hand.
+
+---
+
+## Bulk entry
+
+Every tab in Transport and Hostel has **Import spreadsheet** and **Export CSV** using the standard flow — download the template, map your columns, review the counts, confirm.
+
+## Troubleshooting
+
+| Problem                          | Fix                                                                                                        |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Fee typed twice on subscriptions | Set it on the **route** / **hostel** first — subscriptions inherit it                                      |
+| Room shows no beds left          | Raise capacity, or free a seat by removing a subscription                                                  |
+| Student not billed               | A subscription alone does not bill — add the fee head or a template                                        |
+| Menu missing                     | Transport & Hostel are gated by plan — see [Plans & Billing](/en/docs/school-operations/billing-and-plans) |
+
+Next: **[Payroll, Salary & Loans](/en/docs/school-operations/payroll-and-salary)**.

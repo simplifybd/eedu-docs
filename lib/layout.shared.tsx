@@ -9,7 +9,7 @@ export function baseOptions(): BaseLayoutProps {
       title: (
         <div className="flex items-center gap-2.5">
           <Image
-            src="/images/icon.png"
+            src="/images/icon.webp"
             alt="eEdu.bd logo"
             width={36}
             height={36}

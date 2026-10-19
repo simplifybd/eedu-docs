@@ -1,0 +1,107 @@
+---
+title: Add & Manage Students
+description: Add a student, link guardians, enrol them into a classroom, download ID cards, and import or export the register.
+---
+
+<Figure src="/images/docs/add-manage-students.webp" alt="Students working together in a classroom" />
+
+The student register is the source of truth for attendance, fees, exams and both portals. Add each student once, correctly — everything else reads from this record.
+
+---
+
+## 1. Add a student
+
+`Dashboard → Students → Students` → **Add student**. The form is split into six groups; only the star-marked fields are required.
+
+| Section | What to enter |
+| --- | --- |
+| **Basic information** | Full name, gender, blood group, date of birth; NID and photo if you have them |
+| **Guardian / Parent information** | At least one guardian — see step 2 |
+| **Address & additional details** | Division / District / Upazila, address, previous school, transfer certificate number |
+| **Emergency contact** | Name, phone, relation |
+| **Additional notes** | Free text, up to 500 characters |
+| **Documents** | Up to 20 links (birth certificate, photos, forms) |
+
+**Save changes** creates the record.
+
+> [!TIP]
+> Entering a **phone number for the student or guardian automatically creates a login account** for that person's portal. Leave it blank only if you do not want them to log in yet.
+
+---
+
+## 2. Link guardians
+
+A student needs **at least one guardian**. On the form, use **Add guardian** for extra guardians (both parents, or a guardian and a grandparent).
+
+- Fill **Name**, **Phone** and **Relation**.
+- Tick **Primary guardian** on the one person the school deals with — only one can be primary.
+- **Guardian phone** is what creates the parent login, so use the number the family actually answers.
+
+Guardians can be edited later from the student's profile → **Guardians** tab (**Add guardian** / **Edit** / **Remove**).
+
+---
+
+## 3. Find and maintain the register
+
+`Dashboard → Students → Students`:
+
+- Search by name or admission number.
+- Filter by **status** (Active, Inactive, Suspended, Graduated, Dropout, Archived), gender or classroom.
+- Select rows for bulk **Edit / Delete / Archive / Restore**.
+- Each row's menu gives **View profile**, **Edit student**, **Send SMS**, **Archive**.
+
+**Archive** hides a student without destroying history — prefer it over Delete. **Delete** is only offered where it is safe.
+
+---
+
+## 4. Enrol into a classroom & transfer
+
+`Dashboard → Students → Enrollments`:
+
+1. **Enroll student** → pick student, classroom and academic year → save. The student now appears in that class's attendance, fees and results.
+2. To move a student between classrooms mid-year, select the row → **Transfer student** and choose the new class. Past records stay with the original class.
+3. **Import spreadsheet** / **Export CSV** handle the whole batch.
+
+> [!NOTE]
+> Attendance, exam marks and fees are all attached to the **enrollment**, not just the student. A student with no enrollment shows up nowhere in the daily register.
+
+---
+
+## 5. ID card, transfer certificate & health records
+
+Open any student (`Dashboard → Students → Students` → **View profile**). The header gives:
+
+- **Download ID card** — printable PDF.
+- **Transfer certificate** — issue a TC when a student leaves.
+- **Collect payment** — jump straight to fee collection.
+- **Archive / Restore / Delete**.
+
+Tabs: **Personal**, **Academic**, **Fees**, **Attendance**, **Guardians**, **Health**.
+
+The **Health** tab stores checkups, vaccinations, medication, allergies and injuries with a severity level — useful for staff on trips or during an emergency.
+
+---
+
+## 6. Import and export in bulk
+
+Most list screens in eEdu share the same flow, so learning it once covers students, teachers, enrollments, classrooms, subjects, homework, holidays and library books:
+
+1. Click **Import CSV** / **Import spreadsheet**.
+2. **Download template**, fill it in, then **Upload a spreadsheet** (Excel or CSV).
+3. **Column mapping** — match your columns to eEdu fields (or **Ignore this column**).
+4. Check the counts — *rows detected*, *valid*, *need attention* — preview, then confirm.
+5. If anything fails, **Download error report** lists the row and the reason.
+
+**Export CSV** (or **Export → Excel**) exists on the same toolbars for backups and offline analysis.
+
+## Troubleshooting
+
+| Problem | Fix |
+| --- | --- |
+| Save refused | Fill the starred fields, especially a guardian |
+| Student missing from a class | They have no **enrollment** — do step 4 |
+| Guardian can't log in | The guardian phone must be unique — check it |
+| Wrong class on old records | That is expected — transfers keep history in place |
+| Import fails at confirm | Fix the rows in the error report and re-upload |
+
+Next: **[Class Routine & Timetable](/en/docs/school-operations/class-routine-and-timetable)**.
