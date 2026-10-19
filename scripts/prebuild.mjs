@@ -1,19 +1,9 @@
 #!/usr/bin/env node
-// Build-time generation of static assets for the Cloudflare Pages static export:
-//   1. /search/search-index.json   – Fumadocs static search index (i18n)
-//   2. /robots.txt                 – static robots (Next route handlers are unavailable in export)
-//   3. /sitemap.xml                – every localized docs page
-//   4. /manifest.webmanifest       – PWA manifest (previously a Next metadata route)
-// Everything is written into `public/` so `next build` copies it to `out/`.
-//
-// Run as part of `pnpm build` (see package.json).
-
 import { readdirSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { createI18nSearchAPI } from "fumadocs-core/search/server";
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://docs.eedu.bd";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://docs.eedu.bd";
 const CONTENT_DIR = join(process.cwd(), "content/docs");
 const PUBLIC_DIR = join(process.cwd(), "public");
 const LANGUAGES = ["en", "bn"];

@@ -7,6 +7,9 @@ const config = {
   reactStrictMode: true,
   // Cloudflare Pages static export — no server runtime, no Node-only APIs.
   output: 'export',
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     unoptimized: true,
   },
