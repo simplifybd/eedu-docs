@@ -13,7 +13,7 @@ const ROOT_TITLES = {
   bn: "eEdu.bd হেল্প সেন্টার",
 };
 
-// ---------- content extraction ----------
+// content extraction
 
 function stripFrontmatter(mdx) {
   const match = mdx.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
@@ -75,7 +75,7 @@ function slugFromPath(localeFile, lang) {
     .join("/");
 }
 
-// ---------- assets ----------
+// assets
 
 function buildSearchIndex() {
   const indexes = [];
@@ -162,7 +162,7 @@ const redirects = `/  /en/docs  302
 /bn  /bn/docs  302
 `;
 
-// ---------- helpers ----------
+// helpers
 
 function dirExists(dir) {
   try {
@@ -172,7 +172,6 @@ function dirExists(dir) {
   }
 }
 
-// ---------- run ----------
 
 function collectPages() {
   const pages = [];

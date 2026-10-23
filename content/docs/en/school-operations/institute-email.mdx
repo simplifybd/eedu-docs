@@ -1,0 +1,163 @@
+---
+title: Institute Email
+description: Send email from your own domain and manage staff mailboxes with 3-tier lifecycle management.
+---
+
+Institute Email lets you send and receive email from your own domain (e.g. `principal@example.edu.bd`) using the platform's managed mail servers (`mail.eedu.bd`). It is available on the **Pro** plan and includes a 3-tier subscription lifecycle: **Active** (full access), **Grace** (incoming only, login+sending paused after overdue), and **Suspended** (fully inactive).
+
+---
+
+## 1. Before you start
+
+| Requirement | Why |
+| ----------- | ----- |
+| **Pro plan (or active trial)** | Email is a Pro-only feature |
+| **A domain you own** | e.g. `example.edu.bd` |
+| **Access to its DNS settings** | At your registrar or DNS host (Cloudflare, etc.) |
+| **Understanding of the 3-tier lifecycle** | Active → Grace (15-day default, extendable) → Suspended (after 15+ overdue days or free downgrade) |
+
+The system automatically tracks subscription status and transitions your mail service through the three states. Admins can also manually suspend, reactivate, or extend the grace period from the control panel.
+
+---
+
+## 2. Connect your mail domain
+
+`Dashboard → Communication → Email`
+
+1. Enter your domain (e.g. `example.edu.bd`) and click **Check availability**.
+2. Click **Connect domain**. eEdu provisions the domain on the mail platform and generates a DKIM signing key.
+
+Your domain now appears with status **PENDING DNS** and a list of DNS records to add.
+
+<Callout type="warn">
+  DNS changes can take a few minutes to propagate. eEdu also re-checks pending domains automatically every hour.
+</Callout>
+
+---
+
+## 3. Add the DNS records
+
+At your domain registrar, add exactly the records shown on the Email page:
+
+| Type | Host | Value |
+| ---- | ---- | ----- |
+| `MX` | `@` | `mail.eedu.bd` (priority 10) |
+| `TXT` (SPF) | `@` | `v=spf1 mx a:mail.eedu.bd ~all` |
+| `TXT` (DKIM) | `dkim._domainkey` | the DKIM value shown on the page |
+| `TXT` (DMARC) | `_dmarc` | `v=DMARC1; p=quarantine; pct=100; adkim=r; aspf=r;` |
+| `CNAME` | `autodiscover` | `mail.eedu.bd` |
+| `CNAME` | `autoconfig` | `mail.eedu.bd` |
+
+Then click **Verify DNS**. When all four core records (MX, SPF, DKIM, DMARC) pass, the domain becomes **ACTIVE**.
+
+---
+
+## 4. Create mailboxes
+
+Once the domain is **ACTIVE**, click **New mailbox**:
+
+| Field | Example |
+| ----- | ------- |
+| Email address | `principal` → `principal@example.edu.bd` |
+| Display name | `Principal Office` |
+| Storage quota | 100–10240 MB (per your plan) |
+
+<Callout type="warn">
+  The mailbox password is shown **once** immediately after creation and is never stored by eEdu. Copy it before closing the dialog.
+</Callout>
+
+Mailboxes appear in a table with live usage, and can be edited (name, quota, active) or deleted at any time. Mailbox names like `admin`, `postmaster` and `noreply` are reserved.
+
+Each mailbox row has extra actions:
+
+| Action | What it does |
+| -------- | ------------ |
+| **Change password** (key icon) | Set a new password or generate a strong one (shown once). Optionally force a change on next login. |
+| **App passwords** (shield icon) | Create per-device passwords for Outlook/phone mail apps so the main password stays private. Up to 10 per mailbox. |
+
+---
+
+## 5. Aliases
+
+`Aliases` section (below the mailbox table) — extra addresses that deliver to existing mailboxes:
+
+| Field | Example |
+| ----- | ------- |
+| Alias address | `info` → `info@example.edu.bd` |
+| Destinations | `principal@example.edu.bd, admissions@example.edu.bd` (up to 5) |
+| Comment | "Front office inbox" (optional) |
+
+Use aliases for departmental addresses (`admissions@`, `accounts@`) without creating extra mailboxes.
+
+---
+
+## 6. Forwarders
+
+`Forwarders` section — automatically forward all mail from a mailbox to another address (e.g. `principal@example.edu.bd` → the principal's personal inbox). One forwarder per mailbox; delete it to change the destination.
+
+---
+
+## 7. Access your email
+
+- **Webmail**: open `https://mail.eedu.bd` and sign in with the full email address and the generated password.
+- **Email apps** (Outlook, Thunderbird, phone mail):
+
+| Setting | Value |
+| -------- | ----- |
+| Username | full email address |
+| Incoming (IMAP) | `mail.eedu.bd`, port `993`, SSL/TLS |
+| Outgoing (SMTP) | `mail.eedu.bd`, port `465` (SSL) or `587` (STARTTLS) |
+
+---
+
+## 8. Plan limits & Dynamic add-ons
+
+| Plan | Mailboxes | Domain storage | Extra mailbox seats | Extra storage |
+| ---- | --------- | -------------- | ------------------- | ------------- |
+| **Free** | — (feature locked) | — | Not available | Not available |
+| **Pro** | per plan quota (e.g. 100) | per plan quota (e.g. 10 GB) | `emailExtraMailboxPrice` per seat | `emailExtraStorageGbPrice` per GB |
+
+**Dynamic Plan Engine**: Unit prices live on the `SubscriptionPlan` model and are never hardcoded in app code. Admins can purchase extra mailbox seats or extra storage GB from the **Admin → Email → Add-ons** page. Credits are stored in the `InstituteEmailCredit` table and immediately push updated limits to the mail platform.
+
+<Callout type="info">
+  When add-ons are purchased, the domain quota on the mail platform is automatically synchronized — no manual re-provisioning needed.
+</Callout>
+
+---
+
+## 9. 3‑Tier Lifecycle State
+
+| State | When it happens | Login / Sending | Receiving |
+| ----- | --------------- | --------------- | --------- |
+| **ACTIVE** | Subscription current, no overdue | Full access | Full access |
+| **GRACE** | Overdue ≤ grace period (default 15 days) | **Blocked** (login + sending paused) | **Accepted** (incoming still stored) |
+| **SUSPENDED** | Overdue > grace period **or** plan downgraded to Free | **Blocked** | **Blocked** |
+
+The lifecycle job runs periodically and demotes the service state based on billing. Super‑admins can also:
+
+- **Suspend** a domain manually (overrides automatic state)
+- **Reactivate** a domain (clears suspension)
+- **Extend grace** by 1–90 days (adds to `graceExtensionUntil`)
+
+These actions appear in the domain actions menu per domain in **Dashboard → Admin → Email Control**.
+
+<Callout type="warn">
+  Grace period extensions are additive — the new expiry is `graceEndsAt` + added days. A manual FORCE_SUSPENDED override stays in effect until cleared.
+</Callout>
+
+---
+
+## 10. Troubleshooting
+
+| Symptom | What to check |
+| -------- | ------------ |
+| Status stays **PENDING DNS** | One or more of MX/SPF/DKIM/DMARC is missing or still propagating — click **Verify DNS** again |
+| Domain shows **ACTIVE** but can't send | Service may be in **GRACE** — check **Dashboard → Communication → Email** for the service banner |
+| "Mailbox limit reached" | Delete unused mailboxes or purchase extra seats via **Admin → Email → Add-ons** |
+| "Storage quota fully allocated" | Lower quotas on existing mailboxes or purchase extra storage |
+| Domain shows **SUSPENDED** | Subscription overdue > grace period or manual suspend applied — renew or admin‑reactivate |
+| Add‑on purchase fails | Insufficient wallet balance or plan doesn't allow add‑ons (price must be > 0) |
+
+Super-admins can monitor all institute domains under **Dashboard → Admin → Operations → Email Control**, where service state, override flags, and grace ends are displayed per domain.
+
+---
